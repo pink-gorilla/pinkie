@@ -4,7 +4,7 @@
 - Data structures from ClojureScript have to be converted to some kind
 of visual repesentation so that the notebook can render them
 - For all ClojureScript datatypes default renderers are defined here
-- The notebook receves the render-datastructure and renders it to the notebook cell.
+- The notebook receives the render-datastructure and renders it to the notebook cell.
 
 ## Licence
 
