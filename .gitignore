@@ -1,0 +1,15 @@
+/target
+/classes
+/checkouts
+pom.xml
+pom.xml.asc
+*.jar
+*.class
+/.lein-*
+/.nrepl-port
+.DS_Store
+/out
+/.cljs_node_repl
+/node_modules
+/resources
+.shadow-cljs/*
