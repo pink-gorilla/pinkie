@@ -1,6 +1,6 @@
 (ns pinkgorilla.ui.reagent-keyword)
 
-; #?(:clj (defmulti query-params-to-storage (fn [t p] t))
+;; awb99: this approach is no longer used.
 
 (defmulti keyword-to-reagent identity)
 

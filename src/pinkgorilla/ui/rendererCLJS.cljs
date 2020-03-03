@@ -1,5 +1,7 @@
 
 (ns pinkgorilla.ui.rendererCLJS
+  "equivalent to pinkgorilla.ui.renderer, but for clojurescript
+   renders clojurescript data structure to html"
   (:require
    [clojure.string :as string]
    [pinkgorilla.ui.gorilla-renderable :refer [Renderable render]]))
