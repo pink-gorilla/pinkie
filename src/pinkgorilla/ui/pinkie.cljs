@@ -4,7 +4,7 @@
    ;[taoensso.timbre :refer-macros (info)]
    [reagent.core :as r :refer [atom]]
    [reagent.impl.template]
-   [pinkgorilla.ui.helper :refer [text!]]))
+   [pinkgorilla.ui.text2 :refer [text]]))
 
 (def custom-renderers (atom {}))
 
@@ -69,7 +69,7 @@
    reagent-hiccup-syntax))
 
 (defn print-registered-tags []
-  (text!
+  (text
    (with-out-str
      (cljs.pprint/print-table
       (map #(assoc {} :k (first %) :r (pr-str (last %))) (seq @custom-renderers))))))
