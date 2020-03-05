@@ -4,7 +4,7 @@
    ;[taoensso.timbre :refer-macros (info)]
    [reagent.core :as r :refer [atom]]
    [reagent.impl.template]
-   [pinkgorilla.ui.text2 :refer [text]]))
+   [pinkgorilla.ui.text :refer [text]]))
 
 (def custom-renderers (atom {}))
 

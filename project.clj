@@ -12,7 +12,13 @@
                  [org.pinkgorilla/gorilla-renderable "3.0.0"]
                  [reagent "0.8.1"
                   :exclusions [org.clojure/tools.reader]]   ; needed by pinkie r/atom
-                 ]                                          ; used in hiccup rendering
+                 [com.taoensso/timbre "4.10.0"]             ; clojurescript logging
+                 [com.lucasbradstreet/cljs-uuid-utils "1.0.2"] ;; awb99: in encoding, and clj/cljs proof
+                 ]
+  
+  ;resources that will be added to the jar
+   :resource-paths  ["resources"] ; ^:replace
+
 
   ;; :source-paths ["src"]
   ;; :test-paths ["test"]
@@ -37,13 +43,13 @@
 
   ;; TODO: prep tasks breaks alias???
   ;; :prep-tasks ["build-shadow-ci"]
-
+  
   :aliases {"build-shadow-ci" ^{:doc "Build shadow-cljs ci"}
-                              ["run" "-m" "shadow.cljs.devtools.cli" "compile" ":ci"]
+            ["run" "-m" "shadow.cljs.devtools.cli" "compile" ":ci"]
             "test-js"         ^{:doc "Test compiled JavaScript."}
-                              ["shell" "npm" "run" "test"]
+            ["shell" "npm" "run" "test"]
             "bump-version"    ^{:doc "Roll versions artefact version"}
-                              ["change" "version" "leiningen.release/bump-version"]}
+            ["change" "version" "leiningen.release/bump-version"]}
 
   :release-tasks [["vcs" "assert-committed"]
                   ["bump-version" "release"]
