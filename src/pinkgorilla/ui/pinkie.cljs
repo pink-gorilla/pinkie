@@ -1,9 +1,9 @@
 (ns pinkgorilla.ui.pinkie
   (:require
    ;[goog.object :as gobj]
-   ;[taoensso.timbre :refer-macros (info)]
    [reagent.core :as r :refer [atom]]
    [reagent.impl.template]
+   [taoensso.timbre :refer-macros (info)]
    [pinkgorilla.ui.text :refer [text]]))
 
 (def custom-renderers (atom {}))
@@ -73,3 +73,10 @@
    (with-out-str
      (cljs.pprint/print-table
       (map #(assoc {} :k (first %) :r (pr-str (last %))) (seq @custom-renderers))))))
+
+(defn tag-inject
+  "replace reagent hiccup tags with registered functions"
+  [reagent-hiccup]
+  (let [injected (resolve-functions reagent-hiccup)]
+    (info "tag-inject:" injected)
+    injected))
