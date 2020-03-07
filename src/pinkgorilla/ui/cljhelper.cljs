@@ -3,9 +3,12 @@
   (:require
    ;[goog.object :as gobj]
    [clojure.walk :as w]
-   [taoensso.timbre :refer-macros (info)]
+   ;[taoensso.timbre :refer-macros (info)]
    [reagent.core :as reagent :refer [atom]]))
 
+
+(defn info [str]
+  (.log js/console str))
 
 
 (def state-atom

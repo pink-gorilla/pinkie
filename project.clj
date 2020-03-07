@@ -1,4 +1,4 @@
-(defproject org.pinkgorilla/gorilla-renderable-ui "0.1.4"
+(defproject org.pinkgorilla/gorilla-renderable-ui "0.1.5"
   :description "Gorilla Renderable UI - Custom cljs based rendering Pink Gorilla Notebook."
   :url "https://github.com/pink-gorilla/gorilla-renderable-ui"
   :license {:name "MIT"}
@@ -12,7 +12,7 @@
                  [org.pinkgorilla/gorilla-renderable "3.0.2"]
                  [reagent "0.8.1"
                   :exclusions [org.clojure/tools.reader]]   ; needed by pinkie r/atom
-                 [com.taoensso/timbre "4.10.0"]             ; clojurescript logging
+                 ;[com.taoensso/timbre "4.10.0"]             ; clojurescript logging
                  [com.lucasbradstreet/cljs-uuid-utils "1.0.2"] ;; awb99: in encoding, and clj/cljs proof
                  ]
   
