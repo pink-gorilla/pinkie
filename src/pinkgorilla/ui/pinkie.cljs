@@ -4,6 +4,7 @@
    [reagent.core :as r :refer [atom]]
    [reagent.impl.template]
    [taoensso.timbre :refer-macros (info)]
+   [clojure.walk :as w]
    [pinkgorilla.ui.text :refer [text]]))
 
 (def custom-renderers (atom {}))
