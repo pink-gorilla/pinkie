@@ -1,6 +1,6 @@
 (ns pinkgorilla.ui.pinkie
   (:require
-   ;[goog.object :as gobj]
+   [goog.object :as gobj]
    [reagent.core :as r :refer [atom]]
    [reagent.impl.template]
    [taoensso.timbre :refer-macros (info)]
@@ -14,6 +14,16 @@
   ; it would be ideal to let reagent deal with this, but the below line did not work.
   ;(gobj/set reagent.impl.template/tag-name-cache (name k) v)
   )
+
+; mfikes approach would be great, but does not work
+; https://github.com/reagent-project/reagent/issues/362
+
+#_(defn register-tag2 [k v]
+  (gobj/set reagent.impl.template/tag-name-cache k v))
+
+#_(defn register-tag3 [kw c]
+  (register-tag2 (name kw) (r/as-element c)))
+ 
 
 (defn clj->json
   [ds]
