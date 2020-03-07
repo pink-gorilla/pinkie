@@ -1,9 +1,9 @@
 (ns pinkgorilla.ui.pinkie
   (:require
-   [goog.object :as gobj]
+  ; [goog.object :as gobj]
    [reagent.core :as r :refer [atom]]
    [reagent.impl.template]
-   [taoensso.timbre :refer-macros (info)]
+ ;  [taoensso.timbre :refer-macros (info)]
    [clojure.walk :as w]
    [pinkgorilla.ui.text :refer [text]]))
 
@@ -89,5 +89,5 @@
   "replace reagent hiccup tags with registered functions"
   [reagent-hiccup]
   (let [injected (resolve-functions reagent-hiccup)]
-    (info "tag-inject:" injected)
+    ;(info "tag-inject:" injected)
     injected))

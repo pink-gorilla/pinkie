@@ -2,7 +2,8 @@
   (:require
    [reagent.core :as reagent]
    [cljs-uuid-utils.core :as uuid]
-   [taoensso.timbre :refer-macros (info)]))
+   ;[taoensso.timbre :refer-macros (info)]
+   ))
 
 ;; SCRIPT INJECTION could be done by adding script-elements to the dom with addChild,
 ;; But we currently use RequireJS to load modules from third party components.
@@ -31,7 +32,7 @@
         render-fn (:render module)
         version (:version module)]
     ;(info render-fn)
-    (info "rendering version " version)
+    ;(info "rendering version " version)
     (render-fn id-or-el data-js)
     ;(info "rendering: " (render-fn id data))
     ))
