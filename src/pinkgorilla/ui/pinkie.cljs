@@ -85,6 +85,10 @@
      (cljs.pprint/print-table
       (map #(assoc {} :k (first %) :r (pr-str (last %))) (seq @custom-renderers))))))
 
+(defn registered-tags []
+   (map #(assoc {} :k (first %) :r (pr-str (last %))) (seq @custom-renderers)))
+
+
 (defn tag-inject
   "replace reagent hiccup tags with registered functions"
   [reagent-hiccup]
