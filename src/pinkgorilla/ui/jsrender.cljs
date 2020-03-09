@@ -1,4 +1,7 @@
 (ns pinkgorilla.ui.jsrender
+  "jsrender is part of a jsrequire based module system to render data via javascipt inside
+   reagent components. Typically custom ui renderers would use it:
+   [jsrender custom-module data]"
   (:require
    [reagent.core :as reagent]
    [cljs-uuid-utils.core :as uuid]

@@ -1,10 +1,11 @@
-(ns pinkgorilla.ui.cljhelper
+(ns pinkgorilla.ui.widget
   "create state atom from clojure"
   (:require
    ;[goog.object :as gobj]
    [clojure.walk :as w]
    ;[taoensso.timbre :refer-macros (info)]
-   [reagent.core :as reagent :refer [atom]]))
+   [reagent.core :as reagent :refer [atom]]
+   [pinkgorilla.ui.pinkie :refer [register-tag]]))
 
 
 (defn info [str]
@@ -17,11 +18,11 @@
     :time "5 before 12"}))
 
 (defn resolve-state [x]
-  (info "found :widget-state: " x)
+  (info (str "found :widget-state: " x))
   state-atom)
 
 (defn resolve-atoms
-  "resolve function-as symbol to function references in the reagent-hickup-map.
+  "replaces :widget-state inside a reagent-hiccup with state atom.
    Leaves regular hiccup data unchanged."
   [reagent-hiccup-syntax]
   (clojure.walk/prewalk
@@ -31,10 +32,11 @@
        x))
    reagent-hiccup-syntax))
 
-(defn with-state
+
+(defn widget
   [component]
   (let [component (resolve-atoms component)
-        _ (info "resolved component with state: " component)
+        ;_ (info "resolved component with state: " component)
         ]
     (reagent/create-class
      {:display-name "with-state"
@@ -42,3 +44,6 @@
                         [:div.reagent
                          component
                          [:p (str "state: " @state-atom)]])})))
+
+
+(register-tag :widget widget)
