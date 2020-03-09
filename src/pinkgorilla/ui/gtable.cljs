@@ -6,21 +6,20 @@
   (:require
    [pinkgorilla.ui.pinkie :refer [register-tag]]))
 
-(defn row [r]
-  [:tr
-   (into [] (map-indexed
-             (fn [i c]
-               {:key (keyword (str "table-col-" i))}
-               [:tr c]) r))])
+(defn grow [r]
+   (into [:tr] (map-indexed
+                (fn [i c]
+                  [:td {:key (str "table-col-" i)} c]) 
+                r)))
 
 (defn gtable
   [rows]
   [:table
    [:tbody
-    (into [] (map-indexed
-              (fn [i r]
-                {:key (keyword (str "table-row-" i))}
-                [row r]) rows))]])
+     (map-indexed
+      (fn [i r]
+        ^:key (str "table-row-" i) [grow r])
+      rows)]])
 
 
 (register-tag :gtable gtable)
