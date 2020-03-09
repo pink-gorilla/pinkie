@@ -4,7 +4,6 @@
    [pinkgorilla.ui.pinkie :refer [register-tag]]
    ))
 
-
 (defn greeter [& [name]] ; name==state. state is an atom
   (reagent/create-class {:display-name "greeter"
                          :reagent-render (fn []
@@ -15,4 +14,4 @@
                                                [:h2 "World, from Reagent."]]
                                               [:h2 (str "It is so NICE to see " @name)])])}))
 
-(register-tag :agreeter greeter)
+(register-tag :greeter greeter)

@@ -27,7 +27,7 @@
      [:select keys :value
       (when list (map-indexed (fn [idx item] [:option {:key idx :value item} item]) list))]))
   ([value-atom list]
-   (list-selector value-atom list #(info "list selected: " %))))
+   (list-selector value-atom list #(info (str "list selected: " %)))))
 
 (defn assoc-selected [props current-val val]
   (if (= current-val val)

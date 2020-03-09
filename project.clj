@@ -1,4 +1,4 @@
-(defproject org.pinkgorilla/gorilla-renderable-ui "0.1.5"
+(defproject org.pinkgorilla/gorilla-renderable-ui "0.1.7"
   :description "Gorilla Renderable UI - Custom cljs based rendering Pink Gorilla Notebook."
   :url "https://github.com/pink-gorilla/gorilla-renderable-ui"
   :license {:name "MIT"}
@@ -9,11 +9,13 @@
                                      :sign-releases false}]]
   :dependencies [;; [org.clojure/clojure "1.10.1"]
                  ;; [org.clojure/clojurescript "1.10.520"]
-                 [org.pinkgorilla/gorilla-renderable "3.0.2"]
+                 [org.pinkgorilla/gorilla-renderable "3.0.3"]
                  [reagent "0.8.1"
                   :exclusions [org.clojure/tools.reader]]   ; needed by pinkie r/atom
+                 ; awb99: adding timbre logging here would fuck up the kernel-shadowdeps bundle compilation.
                  ;[com.taoensso/timbre "4.10.0"]             ; clojurescript logging
                  [com.lucasbradstreet/cljs-uuid-utils "1.0.2"] ;; awb99: in encoding, and clj/cljs proof
+                  [re-com "2.6.0"]      ; reagent reuseable ui components
                  ]
   
   ;resources that will be added to the jar

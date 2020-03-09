@@ -4,10 +4,12 @@
    [reagent.core :as r :refer [atom]]
    [reagent.impl.template]
  ;  [taoensso.timbre :refer-macros (info)]
-   [clojure.walk :as w]
-   [pinkgorilla.ui.text :refer [text]]))
+   [clojure.walk :as w]))
 
 (def custom-renderers (atom {}))
+
+(defn registered-tags []
+  (map #(assoc {} :k (first %) :r (pr-str (last %))) (seq @custom-renderers)))
 
 (defn register-tag [k v]
   (swap! custom-renderers assoc k v)
@@ -67,7 +69,7 @@
 
     ;a
     b))
-
+ 
 (defn resolve-functions
   "resolve function-as symbol to function references in the reagent-hickup-map.
    Leaves regular hiccup data unchanged."
@@ -78,15 +80,6 @@
        (resolve-vector x)
        x))
    reagent-hiccup-syntax))
-
-(defn print-registered-tags []
-  (text
-   (with-out-str
-     (cljs.pprint/print-table
-      (map #(assoc {} :k (first %) :r (pr-str (last %))) (seq @custom-renderers))))))
-
-(defn registered-tags []
-   (map #(assoc {} :k (first %) :r (pr-str (last %))) (seq @custom-renderers)))
 
 
 (defn tag-inject
