@@ -8,7 +8,7 @@
 
 (def custom-renderers (atom {}))
 
-(defn registered-tags []
+(defn renderer-list []
   (map #(assoc {} :k (first %) :r (pr-str (last %))) (seq @custom-renderers)))
 
 (defn register-tag [k v]
