@@ -5,8 +5,10 @@
   (:require
    [reagent.core :as reagent]
    [cljs-uuid-utils.core :as uuid]
-   ;[taoensso.timbre :refer-macros (info)]
    ))
+
+(defn info [str]
+  (.log js/console str))
 
 ;; SCRIPT INJECTION could be done by adding script-elements to the dom with addChild,
 ;; But we currently use RequireJS to load modules from third party components.
@@ -65,6 +67,7 @@
       :reagent-render (fn [] [:div {:id uuid}])
       :component-did-mount (fn [this]
                                  ;(run-script uuid data snippet)
+                             (info (str "jsrender init: " data))
                              (run-script (reagent/dom-node this) data module))
           ;:component-did-update (fn [this]
           ;                        (run-script uuid data snippet))
@@ -73,7 +76,7 @@
 
       :component-will-update (fn [this [_ {:keys [module data]}]]
               ; with changing of parameters, re-render the component. (important for vega charts)
-                                  ;(info "new params: " new-params)
+                                  (info (str "jsrender new params: " data))
                                    ;(run-script uuid data snippet)
                                (run-script (reagent/dom-node this) data module))})))
 
