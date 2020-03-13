@@ -56,18 +56,18 @@
         ]
     (.require js/window modules-js (partial execute-render id-or-el data))
     ;x (js/require modules-js #(info "rcvd2: " %))    ; it should also work this way.
-    nil ; suppress returning the requirejs module definition
+    nil ; suppress returning the require-js module definition
     ))
 
 (defn jsrender
   [{:keys [module data]}]
   (let [uuid (uuid/uuid-string (uuid/make-random-uuid))]
     (reagent/create-class
-     {:display-name "output-jsscript"
+     {:display-name "jsrender"
       :reagent-render (fn [] [:div {:id uuid}])
       :component-did-mount (fn [this]
                                  ;(run-script uuid data snippet)
-                             (info (str "jsrender init: " data))
+                             (info (str "jsrender init module: " module " data: " data))
                              (run-script (reagent/dom-node this) data module))
           ;:component-did-update (fn [this]
           ;                        (run-script uuid data snippet))
