@@ -31,7 +31,7 @@
   [ds]
   (.stringify js/JSON (clj->js ds)))
 
-(defn widget-not-found
+#_(defn widget-not-found
   "ui component for unknown tags - so that we don't need to catch react errors
    Currently not yet used (see resolve function)"
   [name]

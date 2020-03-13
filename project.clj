@@ -15,11 +15,11 @@
                  ; awb99: adding timbre logging here would fuck up the kernel-shadowdeps bundle compilation.
                  ;[com.taoensso/timbre "4.10.0"]             ; clojurescript logging
                  [com.lucasbradstreet/cljs-uuid-utils "1.0.2"] ;; awb99: in encoding, and clj/cljs proof
-                  [re-com "2.6.0"]      ; reagent reuseable ui components
+                 [re-com "2.6.0"]      ; reagent reuseable ui components
                  ]
-  
+
   ;resources that will be added to the jar
-   :resource-paths  ["resources"] ; ^:replace
+  :resource-paths  ["resources"] ; ^:replace
 
 
   ;; :source-paths ["src"]
@@ -45,7 +45,7 @@
 
   ;; TODO: prep tasks breaks alias???
   ;; :prep-tasks ["build-shadow-ci"]
-  
+
   :aliases {"build-shadow-ci" ^{:doc "Build shadow-cljs ci"}
             ["run" "-m" "shadow.cljs.devtools.cli" "compile" ":ci"]
             "test-js"         ^{:doc "Test compiled JavaScript."}
