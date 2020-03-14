@@ -67,7 +67,7 @@
       :reagent-render (fn [] [:div {:id uuid}])
       :component-did-mount (fn [this]
                                  ;(run-script uuid data snippet)
-                             (info (str "jsrender init module: " module " data: " data))
+                             (info (str "jsrender init data: " data))
                              (run-script (reagent/dom-node this) data module))
           ;:component-did-update (fn [this]
           ;                        (run-script uuid data snippet))
