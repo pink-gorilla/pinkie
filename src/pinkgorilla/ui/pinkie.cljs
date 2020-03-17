@@ -76,7 +76,8 @@
   [reagent-hiccup-syntax]
   (clojure.walk/prewalk
    (fn [x]
-     (if (and (coll? x) (keyword? (first x)))
+     ; [:keyword a b c] we want to replace only when we have a vector whose first element is a keyword
+     (if (and (vector? x) (keyword? (first x))) ; awb99 changed coll? to vector? because we dont want to operate on maps
        (resolve-vector x)
        x))
    reagent-hiccup-syntax))
