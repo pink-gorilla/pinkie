@@ -65,8 +65,7 @@
      {:display-name "jsrender"
       :reagent-render (fn [] [:div {:id uuid}])
       :component-did-mount (fn [this]
-                                 ;(run-script uuid data snippet)
-                             (info (str "jsrender init data: " data))
+                             ;(info (str "jsrender init data: " data))
                              (run-script (reagent/dom-node this) data module))
           ;:component-did-update (fn [this]
           ;                        (run-script uuid data snippet))
@@ -76,7 +75,6 @@
       :component-will-update (fn [this [_ {:keys [module data]}]]
               ; with changing of parameters, re-render the component. (important for vega charts)
                                (info (str "jsrender new params: " data))
-                                   ;(run-script uuid data snippet)
                                (run-script (reagent/dom-node this) data module))})))
 
 
