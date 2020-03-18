@@ -48,10 +48,12 @@
 
   :aliases {"build-shadow-ci" ^{:doc "Build shadow-cljs ci"}
             ["run" "-m" "shadow.cljs.devtools.cli" "compile" ":ci"]     
+            
             "test-run" ^{:doc "Test compiled JavaScript."}
             ["shell" "./node_modules/karma/bin/karma" "start" "--single-run"]
+            
             "test-js" ^{:doc "Compile & Run JavaScript."}
-            ["do" "build-shadow-ci"[ "test-run"]]
+            ["do" "build-shadow-ci" [ "test-run"]]
             
             "bump-version"    ^{:doc "Roll versions artefact version"}
             ["change" "version" "leiningen.release/bump-version"]}

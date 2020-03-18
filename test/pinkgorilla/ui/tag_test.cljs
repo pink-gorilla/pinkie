@@ -6,24 +6,15 @@
    [pinkgorilla.ui.pinkie :refer [tag-inject]]
    [pinkgorilla.ui.text :refer [text]]))
 
-
-;; test if the keyword :math gets replaced with math function
-
-
-(deftest tag-replacer-working  []
-  (is (= (tag-inject [:text 1]) [text 1])))
-
-
-;; tags in a map should not be exchanged, in a vector yes.
-
-
-(deftest tag-replacer-map-is-no-vector  []
+(deftest vector-test  []
   (is (= (vector? [:text 1]) true))
   (is (= (vector? {:text 1}) false)))
 
+;; test if the keyword :math gets replaced with math function
+
 (deftest tag-replacer-map-should-be-unchanged  []
-  (let [hiccup-tags-map  {:text 1}]
-    (is (= (tag-inject hiccup-tags-map) hiccup-tags-map))))
+  (is (= (tag-inject {:text 1 :best 2}) {:text 1 :best 2})) ;; tags in a map should not be exchanged,
+  (is (= (tag-inject [:text 1 :text 2]) [text 1 :text 2]))) ;; first tag in vector will get replaced
 
 ;;;
 ;;; simple test; mainly make sure clojure code has not changed 
