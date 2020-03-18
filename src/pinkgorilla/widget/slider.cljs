@@ -3,8 +3,7 @@
    [reagent.core :as reagent]
    [re-com.misc :as rm]
    ;[taoensso.timbre :refer-macros (info)]
-   [pinkgorilla.ui.pinkie :refer [register-tag]]
-   ))
+   [pinkgorilla.ui.pinkie :refer [register-tag]]))
 
 (defn info [str]
   (.log js/console str))

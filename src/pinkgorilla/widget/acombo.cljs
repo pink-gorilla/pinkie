@@ -1,9 +1,7 @@
 (ns pinkgorilla.widget.acombo
   (:require
     ;[taoensso.timbre :refer-macros (info)]
-    [pinkgorilla.ui.pinkie :refer [register-tag]]
-   ))
-
+   [pinkgorilla.ui.pinkie :refer [register-tag]]))
 
 (defn info [str]
   (.log js/console str))

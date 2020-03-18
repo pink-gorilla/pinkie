@@ -39,17 +39,14 @@
   (let [k (widget-key x)]
     (if (nil? k) false true)))
 
-
 (defn deref-key [k]
   (k @state-atom))
-
 
 (defn walk-key [x]
   (if (is-key? x)
     (let [k (widget-key x)]
       [deref-key k])
     x))
-
 
 (defn resolve-widget
   "replaces :widget inside a reagent-hiccup with state atom.
@@ -63,6 +60,5 @@
   [:div
    [:h1 "widget state: "]
    [:p (str @state-atom)]])
-
 
 (register-tag :widget-state widget-state)

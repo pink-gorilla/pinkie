@@ -5,7 +5,7 @@
    [pinkgorilla.ui.pinkie :refer [register-tag]]))
 
 ; this was moved from notebook.
- 
+
 (defn temp-comp-hack
   [no-kw]
   (when no-kw (into [(keyword (first no-kw))]
@@ -62,14 +62,13 @@
 (defn html
   [html]
   (when (string? html)
-      (reagent/create-class
-       {:display-name        "html"                 ;; for more helpful warnings & errors
+    (reagent/create-class
+     {:display-name        "html"                 ;; for more helpful warnings & errors
          ;; :component-will-unmount (fn [this])
-        :component-did-mount (fn [this] (process-scripts! (reagent/dom-node this)))
+      :component-did-mount (fn [this] (process-scripts! (reagent/dom-node this)))
 
          ;; :component-did-update (fn [this old-argv])
-        :reagent-render      (fn []
-                               [:div {:dangerouslySetInnerHTML {:__html html}}])})))
-
+      :reagent-render      (fn []
+                             [:div {:dangerouslySetInnerHTML {:__html html}}])})))
 
 (register-tag :html html)

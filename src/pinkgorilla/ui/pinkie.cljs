@@ -4,7 +4,9 @@
    [reagent.core :as r :refer [atom]]
    [reagent.impl.template]
  ;  [taoensso.timbre :refer-macros (info)]
-   [clojure.walk :as w]))
+   [clojure.walk :refer [prewalk]] ; cljs 1.10 still does not have walk fixed
+  ; [pinkgorilla.ui.walk :refer [prewalk]] ; TODO: replace this as soon as 1.11 cljs is out.
+   ))
 
 (def custom-renderers (atom {}))
 
@@ -21,23 +23,22 @@
 ; https://github.com/reagent-project/reagent/issues/362
 
 #_(defn register-tag2 [k v]
-  (gobj/set reagent.impl.template/tag-name-cache k v))
+    (gobj/set reagent.impl.template/tag-name-cache k v))
 
 #_(defn register-tag3 [kw c]
-  (register-tag2 (name kw) (r/as-element c)))
- 
+    (register-tag2 (name kw) (r/as-element c)))
 
 (defn clj->json
   [ds]
   (.stringify js/JSON (clj->js ds)))
 
 #_(defn widget-not-found
-  "ui component for unknown tags - so that we don't need to catch react errors
+    "ui component for unknown tags - so that we don't need to catch react errors
    Currently not yet used (see resolve function)"
-  [name]
-  [:div.widget-not-found {:style {:background-color "red"}}
-   [:h3 "WIDGET NOT FOUND!"]
-   [:p (str "You have entered: " (clj->json name))]])
+    [name]
+    [:div.widget-not-found {:style {:background-color "red"}}
+     [:h3 "WIDGET NOT FOUND!"]
+     [:p (str "You have entered: " (clj->json name))]])
 
 (defn resolve-function
   "replaces keyword with react function,
@@ -69,19 +70,20 @@
 
     ;a
     b))
- 
+
 (defn resolve-functions
   "resolve function-as symbol to function references in the reagent-hickup-map.
    Leaves regular hiccup data unchanged."
   [reagent-hiccup-syntax]
-  (clojure.walk/prewalk
+  (prewalk
    (fn [x]
      ; [:keyword a b c] we want to replace only when we have a vector whose first element is a keyword
-     (if (and (vector? x) (keyword? (first x))) ; awb99 changed coll? to vector? because we dont want to operate on maps
+     (if (and
+          (and (vector? x) (not (map-entry? x)))
+          (keyword? (first x))) ; awb99 changed coll? to vector? because we dont want to operate on maps
        (resolve-vector x)
        x))
    reagent-hiccup-syntax))
-
 
 (defn tag-inject
   "replace reagent hiccup tags with registered functions"

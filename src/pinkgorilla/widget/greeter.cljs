@@ -1,8 +1,7 @@
 (ns pinkgorilla.widget.greeter
   (:require
    [reagent.core :as reagent]
-   [pinkgorilla.ui.pinkie :refer [register-tag]]
-   ))
+   [pinkgorilla.ui.pinkie :refer [register-tag]]))
 
 (defn greeter [& [name]] ; name==state. state is an atom
   (reagent/create-class {:display-name "greeter"

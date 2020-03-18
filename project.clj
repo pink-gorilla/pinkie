@@ -1,4 +1,4 @@
-(defproject org.pinkgorilla/gorilla-renderable-ui "0.1.8"
+(defproject org.pinkgorilla/gorilla-renderable-ui "0.1.10"
   :description "Gorilla Renderable UI - Custom cljs based rendering Pink Gorilla Notebook."
   :url "https://github.com/pink-gorilla/gorilla-renderable-ui"
   :license {:name "MIT"}
@@ -47,9 +47,12 @@
   ;; :prep-tasks ["build-shadow-ci"]
 
   :aliases {"build-shadow-ci" ^{:doc "Build shadow-cljs ci"}
-            ["run" "-m" "shadow.cljs.devtools.cli" "compile" ":ci"]
-            "test-js"         ^{:doc "Test compiled JavaScript."}
-            ["shell" "npm" "run" "test"]
+            ["run" "-m" "shadow.cljs.devtools.cli" "compile" ":ci"]     
+            "test-run" ^{:doc "Test compiled JavaScript."}
+            ["shell" "./node_modules/karma/bin/karma" "start" "--single-run"]
+            "test-js" ^{:doc "Compile & Run JavaScript."}
+            ["do" "build-shadow-ci"[ "test-run"]]
+            
             "bump-version"    ^{:doc "Roll versions artefact version"}
             ["change" "version" "leiningen.release/bump-version"]}
 

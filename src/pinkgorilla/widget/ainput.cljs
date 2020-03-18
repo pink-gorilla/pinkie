@@ -1,9 +1,7 @@
 (ns pinkgorilla.widget.ainput
   (:require
    ;[taoensso.timbre :refer-macros (info)]
-   [pinkgorilla.ui.pinkie :refer [register-tag]]
-   ))
-
+   [pinkgorilla.ui.pinkie :refer [register-tag]]))
 
 (defn info [str]
   (.log js/console str))
@@ -19,5 +17,4 @@
            :value (if (nil? (k @a)) "" (k @a))
            :on-change #(update-key a k (-> % .-target .-value))}])
 
-
-(register-tag :ainput atom-text )
+(register-tag :ainput atom-text)

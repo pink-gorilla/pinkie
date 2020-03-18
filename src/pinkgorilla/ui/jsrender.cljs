@@ -4,8 +4,7 @@
    [jsrender custom-module data]"
   (:require
    [reagent.core :as reagent]
-   [cljs-uuid-utils.core :as uuid]
-   ))
+   [cljs-uuid-utils.core :as uuid]))
 
 (defn info [str]
   (.log js/console str))
@@ -76,7 +75,7 @@
 
       :component-will-update (fn [this [_ {:keys [module data]}]]
               ; with changing of parameters, re-render the component. (important for vega charts)
-                                  (info (str "jsrender new params: " data))
+                               (info (str "jsrender new params: " data))
                                    ;(run-script uuid data snippet)
                                (run-script (reagent/dom-node this) data module))})))
 
