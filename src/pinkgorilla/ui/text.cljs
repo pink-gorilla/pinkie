@@ -1,9 +1,10 @@
-(ns pinkgorilla.ui.text2
+(ns pinkgorilla.ui.text
   "Render text (as string) to html
    works with \n newlines
    Needed because \n is meaningless in html"
   (:require
-   [clojure.string :as str]))
+   [clojure.string :as str]
+   [pinkgorilla.ui.pinkie :refer [register-tag]]))
 
 ;; stolen from gorilla-notebook.
 
@@ -15,6 +16,8 @@
 (defn text [t]
   (let [lines (str/split t #"\n")]
     (into [:div {:gorilla_ui "text"}] (map line-with-br lines))))
+
+(register-tag :text text)
 
 (comment
 

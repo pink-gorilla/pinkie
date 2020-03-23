@@ -9,10 +9,18 @@
                                      :sign-releases false}]]
   :dependencies [;; [org.clojure/clojure "1.10.1"]
                  ;; [org.clojure/clojurescript "1.10.520"]
-                 [org.pinkgorilla/gorilla-renderable "3.0.0"]
+                 [org.pinkgorilla/gorilla-renderable "3.0.4"]
                  [reagent "0.8.1"
                   :exclusions [org.clojure/tools.reader]]   ; needed by pinkie r/atom
-                 ]                                          ; used in hiccup rendering
+                 ; awb99: adding timbre logging here would fuck up the kernel-shadowdeps bundle compilation.
+                 ;[com.taoensso/timbre "4.10.0"]             ; clojurescript logging
+                 [com.lucasbradstreet/cljs-uuid-utils "1.0.2"] ;; awb99: in encoding, and clj/cljs proof
+                 [re-com "2.6.0"]      ; reagent reuseable ui components
+                 ]
+
+  ;resources that will be added to the jar
+  :resource-paths  ["resources"] ; ^:replace
+
 
   ;; :source-paths ["src"]
   ;; :test-paths ["test"]
@@ -39,11 +47,16 @@
   ;; :prep-tasks ["build-shadow-ci"]
 
   :aliases {"build-shadow-ci" ^{:doc "Build shadow-cljs ci"}
-                              ["run" "-m" "shadow.cljs.devtools.cli" "compile" ":ci"]
-            "test-js"         ^{:doc "Test compiled JavaScript."}
-                              ["shell" "npm" "run" "test"]
+            ["run" "-m" "shadow.cljs.devtools.cli" "compile" ":ci"]     
+            
+            "test-run" ^{:doc "Test compiled JavaScript."}
+            ["shell" "./node_modules/karma/bin/karma" "start" "--single-run"]
+            
+            "test-js" ^{:doc "Compile & Run JavaScript."}
+            ["do" "build-shadow-ci" [ "test-run"]]
+            
             "bump-version"    ^{:doc "Roll versions artefact version"}
-                              ["change" "version" "leiningen.release/bump-version"]}
+            ["change" "version" "leiningen.release/bump-version"]}
 
   :release-tasks [["vcs" "assert-committed"]
                   ["bump-version" "release"]

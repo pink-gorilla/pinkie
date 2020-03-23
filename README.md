@@ -2,6 +2,9 @@
 
 - This project is part of [Pink Gorilla Notebook](https://github.com/pink-gorilla/gorilla-notebook)
 
+Clojurescript functions and reagent components used in notebook.
+This project is always included in the notebook.
+
 # Clojurescript renderer
 - Data structures from ClojureScript have to be converted to some kind
 of visual repesentation so that the notebook can render them
