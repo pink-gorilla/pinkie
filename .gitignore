@@ -11,7 +11,6 @@ pom.xml.asc
 /out
 /.cljs_node_repl
 /node_modules
-/resources
 .shadow-cljs/*
 .classpath
 .project
