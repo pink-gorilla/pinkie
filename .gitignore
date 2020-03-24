@@ -13,3 +13,7 @@ pom.xml.asc
 /node_modules
 /resources
 .shadow-cljs/*
+.classpath
+.project
+.settings/*
+
