@@ -2,7 +2,6 @@
   (:require
    [cljs.test :refer-macros [async deftest is testing]]
    [clojure.walk :refer [prewalk]]
-   ;[pinkgorilla.ui.walk :refer [prewalk postwalk]]
    [pinkgorilla.ui.pinkie :refer [tag-inject]]
    [pinkgorilla.ui.text :refer [text]]))
 

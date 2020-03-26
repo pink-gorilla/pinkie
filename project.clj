@@ -9,7 +9,7 @@
                                      :sign-releases false}]]
   :dependencies [;; [org.clojure/clojure "1.10.1"]
                  ;; [org.clojure/clojurescript "1.10.520"]
-                 [org.pinkgorilla/gorilla-renderable "3.0.4"]
+                 [org.pinkgorilla/gorilla-renderable "3.0.5"]
                  [reagent "0.8.1"
                   :exclusions [org.clojure/tools.reader]]   ; needed by pinkie r/atom
                  ; awb99: adding timbre logging here would fuck up the kernel-shadowdeps bundle compilation.
