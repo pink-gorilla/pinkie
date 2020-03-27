@@ -28,8 +28,8 @@ require.config({
          /* Note the `delayStartupUntil=configured` parameter */
          // 'mathjax' : 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_SVG-full.js&delayStartupUntil=configured'
          //  'mathjax' : 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.0.1/es5/sre/sre_browser.min.js?config=TeX-AMS_HTML&amp;delayStartupUntil=configured' // .js extension is added automatically
-         //  'mathjax' : 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml' // .js extension is added automatically
-         "mathjax" : "js/mathjax"
+           'mathjax' : 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml' // .js extension is added automatically
+         //"mathjax" : "js/mathjax"
     },
     shim: {
         // VEGA dependencies
@@ -60,84 +60,3 @@ require.config({
     }
 
 });
-
-// ?noext
-
-//'vega-embed':  'vega-embed@3?noext',
-//      'vega-lib': 'vega-lib?noext',
-//      'vega-lite': 'vega-lite@2?noext',
-//      'vega': 'vega@3?noext'
-
-/*
-function testRequireJS() {
-    require(["demo"], function (demo) {
-        demo.render("ABC-DEMO-123", {a: 15, b: 10, t: "render test"});
-    });
-
-    // var world_module = "define([],function(){return 'world!'})";
-    var world_module = "define([],function(){return {a: function (name) {return 'hello, ' + name}}})";
-    require(["loadstring!" + world_module],
-        function (x) {
-            console.log("Hello " + x);
-        })
-
-    require(["vega"], function (y) {
-        console.log("Vega Embed ");
-        console.log(y);
-    })
-}
-*/
-//testRequireJS();
-
-
-/* awb99 2020 03 05: this was old code in notebook
-
-;; <!--script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-;; <script type="text/x-mathjax-config">
-;; MathJax.Hub.Config({
-;;                    tex2jax: {
-;;                              inlineMath: [['$','$']],
-;;                              processClass: "mathjax",
-;;                              ignoreClass: "no-mathjax"
-;;                              }
-;;                    });
-;; </script-->
-
-(defn queue-mathjax-rendering
-  [id]
-  (if-let [mathjax (.-MathJax js/window)]
-    (doto (.-Hub mathjax)
-      (.Queue #js ["Typeset" (.-Hub mathjax) id]))
-    (warn "Missing global MathJax")))
-
-
-(defn output-latex
-  [output _] ; seg-id
-  (let [uuid (uuid/uuid-string (uuid/make-random-uuid))
-        span-kw (keyword (str "span#" uuid))]
-    (reagent/create-class
-     {:component-did-mount  (fn [_]
-                              (queue-mathjax-rendering uuid))
-      ;; :component-did-update (fn [_ _])
-      :reagent-render       (fn []
-                              [value-wrap
-                               (get output :value)
-                               [span-kw {:class                   "latex-span"
-                                         :dangerouslySetInnerHTML {:__html (str "@@" (:content output) "@@")}}]])})))
-
-
-
-;; TODO: MathJax does not kick in with advanced optimization
-(defn init-mathjax-globally!
-  "Initialize MathJax globally"
-  []
-  (if-let [mathjax (.-MathJax js/window)]
-    (doto (.-Hub mathjax)
-      (.Config (clj->js {:messageStyle           "none"
-                         :showProcessingMessages false
-                         :skipStartupTypeset     true
-                         :tex2jax                {:inlineMath (clj->js [["@@", "@@"]])}}))
-      (.Configured))
-    (print "MathJax unavailable")))
-
-    */
