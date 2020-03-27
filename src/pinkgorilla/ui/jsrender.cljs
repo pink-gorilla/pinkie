@@ -6,8 +6,8 @@
    [reagent.core :as reagent]
    [cljs-uuid-utils.core :as uuid]))
 
-(defn info [str]
-  (.log js/console str))
+(defn info [s]
+  (.log js/console s))
 
 ;; We use RequireJS to load javascript modules.
 ;; This modules can be third party libraries, or our code.
@@ -17,7 +17,7 @@
    spec can be either [\"demo\"] or [\"demo!params\"]
    executes a callback with the loaded module"
   [spec callback]
-  (let [spec-js (clj->js [spec])]
+  (let [spec-js (clj->js spec)]
     (.require js/window spec-js callback)
     nil ; suppress returning the require-js module definition
     ))
@@ -49,14 +49,16 @@
 (defn render-data-from-js-module
   "renders data to dom, using a loaded js-module"
   [id-or-el data js-module]
-  (let [module (js->clj js-module :keywordize-keys true)
-        {:keys [render version]} module ; extract the functions from the module        
-        data-js (clj->js data)]
+  (if (nil? js-module)
+    (info (str "module nil. cannot render data:" (pr-str data)))
+    (let [module (js->clj js-module :keywordize-keys true)
+          {:keys [render version]} module ; extract the functions from the module        
+          data-js (clj->js data)]
     ;(info render-fn)
     ;(info "rendering version " version)
-    (render id-or-el data-js)
+      (render id-or-el data-js)
     ;(info "rendering: " (render-fn id data))
-    ))
+      )))
 
 (defn run-script [id-or-el data module-name]
   (get-js-module-with-name  module-name
