@@ -32,44 +32,74 @@
   [ds]
   (.stringify js/JSON (clj->js ds)))
 
-#_(defn widget-not-found
-    "ui component for unknown tags - so that we don't need to catch react errors
+(def html5-tags
+  #{:<>   ; this is technically the reagent-ignore keyword
+    :a :abbr :address :area :article :aside :audio
+    :b :base :bdi :bdo :blockquote :body :br :button
+    :canvas :caption :cite :code :col :colgroup
+    :data :datalist :dd :del :dfn :div :dl :dt
+    :em :embed
+    :fieldset :figcaption :figure :footer :form
+    :h1 :h2 :h3 :h4 :h5 :h6 :head :header :hr :html
+    :i :iframe :img :input :ins
+    :kbd :keygen
+    :label :legend :li :link
+    :main :map :mark :meta :meter
+    :nav :noscript
+    :object :ol :optgroup :option :output
+    :p :param :pre :progress
+    :q
+    :rb :rp :rt :rtc :ruby
+    :s :samp :script :section :select :small :source :span :strong :style :sub :sup
+    :table :tbody :td :template :textarea :tfoot :th :thead :time :title :tr :track
+    :u :ul
+    :var :video
+    :wbr})
+
+(defn unknown-tag
+  "ui component for unknown tags - so that we don't need to catch react errors
    Currently not yet used (see resolve function)"
-    [name]
-    [:div.widget-not-found {:style {:background-color "red"}}
-     [:h3 "WIDGET NOT FOUND!"]
-     [:p (str "You have entered: " (clj->json name))]])
+  []
+  [:div.unknown-tag {:style {:background-color "red"}}
+   [:h3 "Unknown Tag!"]])
+
 
 (defn resolve-function
-  "replaces keyword with react function,
-   if not found return input.
-   TODO: if keyword not registered, and not a reagent tag, then return widget-not-found
-         awb99: the issue is that the undocumented reagent functions to get a keyword list dont work."
-  [s]
-  (let [;pinkgorilla.output.reagentwidget (cljs.core/resolve (symbol widget-name)) ; this is what we want, but resolve is a macro
-        ;_ (info "resolving-function " s)
-        v (s @custom-renderers)
+  "replaces hiccup-tag with the react function, that was registered via add-tag
+   if keyword is no registered function, and not a html5 keyword, then nil will be returned"
+  [tag]
+  (let [; reagent also has :div#main.big which we have to transform to :div
+        tag-typed (reagent.impl.template/cached-parse tag) ; #js {:name "<>", :id nil, :class nil, :custom false}
+        _ (.log js/console "tag typed:" (pr-str tag-typed))
+        tag-clean (keyword (:name (js->clj tag-typed :keywordize-keys true)))
+        _ (.log js/console "tag clean:" tag-clean)
+        v (tag-clean @custom-renderers)
         ;_ (info "renderer found: " v)
         ]
-    (if (nil? v) s v)))
+    (cond
+      (contains? html5-tags tag-clean) tag
+      (not (nil? v)) v
+      :else nil)))
 
-(defn resolve-vector
+(defn resolve-hiccup-vector
   "input: hiccup vector
    if keyword (first position in vector) has been registered via register-tag,
    then it gets replaced with the react function,
    otherwise keyword remains"
   [x]
-  (let [;_ (info "reagent function found: " x)
-        ;_ (info "type of arg: " (type (first (rest x))))
-        ; a [(resolve-function (first x))]
-        b (into [] (assoc x 0 (resolve-function (first x))))
-        ;b (into [] (assoc x 0 :h1))
-        ]
-    ;(info "a is: " a)
-    ;(info "b is: " b)
+  (let [reagent-keyword (first x)
+        render-function (resolve-function reagent-keyword)]
+    (if (nil? render-function)
+      (do (.log js/console "replacing: " (pr-str x))
+          [unknown-tag reagent-keyword])
+      (into [] (assoc x 0 render-function)))))
 
-    ;a
-    b))
+(defn- hiccup-vector? [x]
+  (and
+   (vector? x)
+   (not (map-entry? x)); ignore maps
+   (keyword? (first x)); reagent syntax requires first element  to be a keyword
+   ))
 
 (defn resolve-functions
   "resolve function-as symbol to function references in the reagent-hickup-map.
@@ -77,11 +107,8 @@
   [reagent-hiccup-syntax]
   (prewalk
    (fn [x]
-     ; [:keyword a b c] we want to replace only when we have a vector whose first element is a keyword
-     (if (and
-          (and (vector? x) (not (map-entry? x)))
-          (keyword? (first x))) ; awb99 changed coll? to vector? because we dont want to operate on maps
-       (resolve-vector x)
+     (if (hiccup-vector? x)
+       (resolve-hiccup-vector x)
        x))
    reagent-hiccup-syntax))
 
