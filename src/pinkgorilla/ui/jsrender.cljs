@@ -9,54 +9,60 @@
 (defn info [str]
   (.log js/console str))
 
-;; SCRIPT INJECTION could be done by adding script-elements to the dom with addChild,
-;; But we currently use RequireJS to load modules from third party components.
+;; We use RequireJS to load javascript modules.
+;; This modules can be third party libraries, or our code.
 
-; this is the container of loaded scripts
-; (def jsscript-container (reagent/atom {}))
-; (def jsscript-root (.getElementById js/document "jsscript-root"))
+(defn require-js-module
+  "loads a module via js-require
+   spec can be either [\"demo\"] or [\"demo!params\"]
+   executes a callback with the loaded module"
+  [spec callback]
+  (let [spec-js (clj->js [spec])]
+    (.require js/window spec-js callback)
+    nil ; suppress returning the require-js module definition
+    ))
 
-; (defn inject-script
-;  "inject a javascript snippet to the dom
-;   Does not keep track of which scripts were loaded or not."
-;  [javascript-snippet]
-;  (let [script (.createElement js/document "script")]
-;    (.setAttribute script "type" "text/javascript")
-;    ;(.setAttribute script "src" "helper.js")
-;    (set! (.-innerHTML script) javascript-snippet)
-;    (.appendChild jsscript-root script)
-;    ))
+(defn get-js-module-from-string
+  "loads a module, and executes a callback containing the loaded module.
+   js-snippet: a string, that defines the module. 
+              Example: define([],function(){return 'world!'})
+                       define([],function(){return {render: function (name) {return 'hello, ' + name}}})
+   Implementation:
+   The snippet is passed as a parameter to the 'loadstring' module.
+   The loadstring module then does the real work."
+  [js-snippet callback]
+  (let [spec [(str "loadstring!" js-snippet)]]
+    (require-js-module spec callback)))
+
+(defn get-js-module-with-name
+  "loads a module (with a given name; the module then will be looked up in the
+   require.js module configuration). It then executes the callback, passing it
+   the loaded module."
+  [module-name callback]
+  (let [spec [module-name]]
+    (require-js-module spec callback)))
 
 
-(defn execute-render [id-or-el data module-js]
-  (let [;_ (info "executing script!")
-        module (js->clj module-js :keywordize-keys true)
-        data-js (clj->js data)
-        ;_ (info "module:" module)
-        render-fn (:render module)
-        version (:version module)]
+;; rendering
+
+
+(defn render-data-from-js-module
+  "renders data to dom, using a loaded js-module"
+  [id-or-el data js-module]
+  (let [module (js->clj js-module :keywordize-keys true)
+        {:keys [render version]} module ; extract the functions from the module        
+        data-js (clj->js data)]
     ;(info render-fn)
     ;(info "rendering version " version)
-    (render-fn id-or-el data-js)
+    (render id-or-el data-js)
     ;(info "rendering: " (render-fn id data))
     ))
 
-;; This works:
-;; (.require js/window (clj->js ["demo"]) #(info "result: " %))
-;; (run-script "define([],function(){return 'world!'})")
-;; (run-script "andreas" "define([],function(){return {render: function (name) {return 'hello, ' + name}}})")
-
-
-(defn run-script [id-or-el data javascript-snippet]
-  (let [module (str "loadstring!" javascript-snippet)
-        ;module "demo"
-        modules-js (clj->js [module])
-        ;_ (info "js module source: " modules-js)
-        ]
-    (.require js/window modules-js (partial execute-render id-or-el data))
-    ;x (js/require modules-js #(info "rcvd2: " %))    ; it should also work this way.
-    nil ; suppress returning the require-js module definition
-    ))
+(defn run-script [id-or-el data module-name]
+  (get-js-module-with-name  module-name
+                            (partial render-data-from-js-module id-or-el data))
+  nil ; suppress returning the require-js module definition
+  )
 
 (defn jsrender
   [{:keys [module data]}]
