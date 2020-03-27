@@ -15,7 +15,10 @@
                  ; awb99: adding timbre logging here would fuck up the kernel-shadowdeps bundle compilation.
                  ;[com.taoensso/timbre "4.10.0"]             ; clojurescript logging
                  [com.lucasbradstreet/cljs-uuid-utils "1.0.2"] ;; awb99: in encoding, and clj/cljs proof
-                 [re-com "2.6.0"]      ; reagent reuseable ui components
+
+                 ; re-com uses core.async; therefore we cannot include it in self-hosted clojurescript bundles
+                 ; widgets that use re-com are in notebook
+                 ;[re-com "2.6.0"]      ; reagent reuseable ui components
                  ]
 
   ;resources that will be added to the jar
