@@ -63,7 +63,6 @@
   [:div.unknown-tag {:style {:background-color "red"}}
    [:h3 "Unknown Tag!"]])
 
-
 (defn resolve-function
   "replaces hiccup-tag with the react function, that was registered via add-tag
    if keyword is no registered function, and not a html5 keyword, then nil will be returned"
