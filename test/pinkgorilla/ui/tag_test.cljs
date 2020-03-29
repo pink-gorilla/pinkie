@@ -15,10 +15,17 @@
   (is (= (tag-inject {:text 1 :best 2}) {:text 1 :best 2})) ;; tags in a map should not be exchanged,
   (is (= (tag-inject [:text 1 :text 2]) [text 1 :text 2]))) ;; first tag in vector will get replaced
 
+
+(deftest tag-replacer-exclude  []
+  (is (= (tag-inject ^:r [:text 1 :best 2]) [:text 1 :best 2]))) ;^:r is a tag-replace exclude
+
+
+
 ;;;
 ;;; simple test; mainly make sure clojure code has not changed 
 ;;; (there are breaking changes coming - see pinkgorilla.ui.walk)
 ;;;
+
 
 (defn rep [x]
   ;(println "************ " x)

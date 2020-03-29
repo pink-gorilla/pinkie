@@ -8,6 +8,9 @@
   ; [pinkgorilla.ui.walk :refer [prewalk]] ; TODO: replace this as soon as 1.11 cljs is out.
    ))
 
+(defn- log [s]
+  (.log js/console s))
+
 (def custom-renderers (atom {}))
 
 (defn renderer-list []
@@ -86,7 +89,8 @@
    then it gets replaced with the react function,
    otherwise keyword remains"
   [x]
-  (let [reagent-keyword (first x)
+  (let [_ (.log js/console "meta: " (meta x))
+        reagent-keyword (first x)
         render-function (resolve-function reagent-keyword)]
     (if (nil? render-function)
       (do (.log js/console "replacing: " (pr-str x))
@@ -98,6 +102,7 @@
    (vector? x)
    (not (map-entry? x)); ignore maps
    (keyword? (first x)); reagent syntax requires first element  to be a keyword
+   (not (contains? (meta x) :r)) ; use meta to determine when not to replace  
    ))
 
 (defn resolve-functions
@@ -106,6 +111,7 @@
   [reagent-hiccup-syntax]
   (prewalk
    (fn [x]
+     ()
      (if (hiccup-vector? x)
        (resolve-hiccup-vector x)
        x))
