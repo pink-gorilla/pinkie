@@ -69,9 +69,9 @@
   [tag]
   (let [; reagent also has :div#main.big which we have to transform to :div
         tag-typed (reagent.impl.template/cached-parse tag) ; #js {:name "<>", :id nil, :class nil, :custom false}
-        _ (.log js/console "tag typed:" (pr-str tag-typed))
+        ;_ (.log js/console "tag typed:" (pr-str tag-typed))
         tag-clean (keyword (:name (js->clj tag-typed :keywordize-keys true)))
-        _ (.log js/console "tag clean:" tag-clean)
+        ;_ (.log js/console "tag clean:" tag-clean)
         v (tag-clean @custom-renderers)
         ;_ (info "renderer found: " v)
         ]
