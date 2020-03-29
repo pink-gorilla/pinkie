@@ -37,6 +37,7 @@
 
 (def html5-tags
   #{:<>   ; this is technically the reagent-ignore keyword
+    :> ; another reagent tag
     :a :abbr :address :area :article :aside :audio
     :b :base :bdi :bdo :blockquote :body :br :button
     :canvas :caption :cite :code :col :colgroup
