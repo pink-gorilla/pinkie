@@ -67,8 +67,6 @@
   (is (= (tag-inject [:div.big [:p/unknown 1 :best 2]])
          [:div.big (unknown-tag :p/unknown)])))
 
-unknown-tag
-
 
 ;;;
 ;;; simple test; mainly make sure clojure code has not changed 
