@@ -93,7 +93,7 @@
   "ui component for unknown tags - so that we don't need to catch react errors
    Currently not yet used (see resolve function)"
   [tag]
-  [:div.unknown-tag {:style {:background-color "red"}}
+  [:span.unknown-tag {:style {:background-color "red"}}
    (str "Unknown Tag: " tag)])
 
 (defn replace-tag-in-hiccup-vector
