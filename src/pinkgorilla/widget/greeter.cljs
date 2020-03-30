@@ -13,4 +13,4 @@
                                                [:h2 "World, from Reagent."]]
                                               [:h2 (str "It is so NICE to see " @name)])])}))
 
-(register-tag :greeter greeter)
+(register-tag :p/greeter greeter)

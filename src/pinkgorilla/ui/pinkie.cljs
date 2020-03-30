@@ -1,15 +1,11 @@
 (ns pinkgorilla.ui.pinkie
   (:require
-  ; [goog.object :as gobj]
    [reagent.core :as r :refer [atom]]
    [reagent.impl.template]
  ;  [taoensso.timbre :refer-macros (info)]
    [clojure.walk :refer [prewalk]] ; cljs 1.10 still does not have walk fixed
   ; [pinkgorilla.ui.walk :refer [prewalk]] ; TODO: replace this as soon as 1.11 cljs is out.
    ))
-
-(defn- log [s]
-  (.log js/console s))
 
 (def custom-renderers (atom {}))
 
@@ -60,67 +56,69 @@
     :var :video
     :wbr})
 
-(defn unknown-tag
-  "ui component for unknown tags - so that we don't need to catch react errors
-   Currently not yet used (see resolve function)"
-  []
-  [:div.unknown-tag {:style {:background-color "red"}}
-   [:h3 "Unknown Tag!"]])
-
-(defn resolve-function
-  "replaces hiccup-tag with the react function, that was registered via add-tag
-   if keyword is no registered function, and not a html5 keyword, then nil will be returned"
-  [tag]
+(defn html5-tag? [tag]
   (let [; reagent also has :div#main.big which we have to transform to :div
         tag-typed (reagent.impl.template/cached-parse tag) ; #js {:name "<>", :id nil, :class nil, :custom false}
         ;_ (.log js/console "tag typed:" (pr-str tag-typed))
         tag-clean (keyword (:name (js->clj tag-typed :keywordize-keys true)))
         ;_ (.log js/console "tag clean:" tag-clean)
-        v (tag-clean @custom-renderers)
-        ;_ (info "renderer found: " v)
         ]
-    (cond
-      (contains? html5-tags tag-clean) tag
-      (not (nil? v)) v
-      :else nil)))
+    (contains? html5-tags tag-clean)))
 
-(defn resolve-hiccup-vector
+(def pinkie-namespace (namespace :p/test))
+
+(defn pinkie-tag? [tag]
+  (let [kw-namespace (namespace tag)]
+    (= pinkie-namespace kw-namespace)))
+
+(defn pinkie-exclude? [hiccup-vector]
+  (contains? (meta hiccup-vector) :r))
+
+(defn- hiccup-vector? [hiccup-vector]
+  (and
+   (vector? hiccup-vector)
+   (not (map-entry? hiccup-vector)); ignore maps
+   (keyword? (first hiccup-vector)); reagent syntax requires first element  to be a keyword
+   ))
+
+(defn should-replace? [hiccup-vector]
+  (if (hiccup-vector? hiccup-vector)
+    (let [tag (first hiccup-vector)]
+      (and (not (pinkie-exclude? hiccup-vector))
+           (not (html5-tag? tag))
+           (pinkie-tag? tag)))
+    false))
+
+(defn unknown-tag
+  "ui component for unknown tags - so that we don't need to catch react errors
+   Currently not yet used (see resolve function)"
+  [tag]
+  [:div.unknown-tag {:style {:background-color "red"}}
+   (str "Unknown Tag: " tag)])
+
+(defn replace-tag-in-hiccup-vector
   "input: hiccup vector
    if keyword (first position in vector) has been registered via register-tag,
    then it gets replaced with the react function,
    otherwise keyword remains"
-  [x]
-  (let [_ (.log js/console "meta: " (meta x))
-        reagent-keyword (first x)
-        render-function (resolve-function reagent-keyword)]
+  [hiccup-vector]
+  (let [_ (.log js/console "pinkie replacing: " (pr-str hiccup-vector))
+        tag (first hiccup-vector)
+        render-function (tag @custom-renderers)]
     (if (nil? render-function)
-      (do (.log js/console "replacing: " (pr-str x))
-          [unknown-tag reagent-keyword])
-      (into [] (assoc x 0 render-function)))))
+      (do (.log js/console "pinkie unknown tag: " (name tag))
+          (unknown-tag tag))
+      (into [] (assoc hiccup-vector 0 render-function)))))
 
-(defn- hiccup-vector? [x]
-  (and
-   (vector? x)
-   (not (map-entry? x)); ignore maps
-   (keyword? (first x)); reagent syntax requires first element  to be a keyword
-   (not (contains? (meta x) :r)) ; use meta to determine when not to replace  
-   ))
-
-(defn resolve-functions
+(defn  tag-inject
   "resolve function-as symbol to function references in the reagent-hickup-map.
    Leaves regular hiccup data unchanged."
-  [reagent-hiccup-syntax]
+  [hiccup-vector]
   (prewalk
    (fn [x]
-     ()
-     (if (hiccup-vector? x)
-       (resolve-hiccup-vector x)
+     (if (should-replace? x)
+       (replace-tag-in-hiccup-vector x)
        x))
-   reagent-hiccup-syntax))
+   hiccup-vector))
 
-(defn tag-inject
-  "replace reagent hiccup tags with registered functions"
-  [reagent-hiccup]
-  (let [injected (resolve-functions reagent-hiccup)]
-    ;(info "tag-inject:" injected)
-    injected))
+

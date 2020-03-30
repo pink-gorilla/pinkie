@@ -17,7 +17,7 @@
   (let [lines (str/split t #"\n")]
     (into [:div {:gorilla_ui "text"}] (map line-with-br lines))))
 
-(register-tag :text text)
+(register-tag :p/text text)
 
 (comment
 

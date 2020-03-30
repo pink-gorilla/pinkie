@@ -17,4 +17,4 @@
            :value (if (nil? (k @a)) "" (k @a))
            :on-change #(update-key a k (-> % .-target .-value))}])
 
-(register-tag :ainput atom-text)
+(register-tag :p/ainput atom-text)

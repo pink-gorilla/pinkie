@@ -71,4 +71,4 @@
       :reagent-render      (fn []
                              [:div {:dangerouslySetInnerHTML {:__html html}}])})))
 
-(register-tag :html html)
+(register-tag :p/html html)

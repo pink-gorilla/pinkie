@@ -21,4 +21,4 @@
        ^:key (str "table-row-" i) [grow r])
      rows)]])
 
-(register-tag :gtable gtable)
+(register-tag :p/gtable gtable)

@@ -61,4 +61,4 @@
    [:h1 "widget state: "]
    [:p (str @state-atom)]])
 
-(register-tag :widget-state widget-state)
+(register-tag :p/widget-state widget-state)

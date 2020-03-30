@@ -46,4 +46,4 @@
     (reset! value-atom new-value)
     (action @value-atom)))
 
-(register-tag :acombo list-selector)
+(register-tag :p/acombo list-selector)
