@@ -63,7 +63,7 @@
   [html]
   (when (string? html)
     (reagent/create-class
-     {:display-name        "html"                 ;; for more helpful warnings & errors
+     {:display-name        "htmlwrapper"                 ;; for more helpful warnings & errors
          ;; :component-will-unmount (fn [this])
       :component-did-mount (fn [this] (process-scripts! (reagent/dom-node this)))
 
@@ -71,4 +71,4 @@
       :reagent-render      (fn []
                              [:div {:dangerouslySetInnerHTML {:__html html}}])})))
 
-(register-tag :p/html html)
+(register-tag :p/phtml html) ;phtml because it may not equal a html keyword
