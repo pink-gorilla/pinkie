@@ -11,9 +11,25 @@ of visual repesentation so that the notebook can render them
 - For all ClojureScript datatypes default renderers are defined here
 - The notebook receives the render-datastructure and renders it to the notebook cell.
 
-# Pinkie
+# Pinkie - Value viewer
 - Reagent Hiccup custom tag registry 
 - Will replace tag keywords with react function prior to rendering
+Wert x soll dargestellt werden.
+Value viewer: f(x)    
+f= render funktion. Render funktion passiert immer in clojurescript. Implementiert als reagent render [f x]
+x = darzustellende daten. X muss serialisierbar sein ueber transit. Wenn x nicht ueber transit serialisierbar ist dann muss clojure repl daten umwandeln (z.B. bei bildern); am besten ueber client pull, nicht push.
+Im Moment haben wir typ basiertes rendering also (lookup type) = f. Fuer jeden typ gibt es einen lookup der render funktion.
+Der gleiche typ kann aber unterschiedlich ausgegeben werden.
+Wichtig ist, dass clojure einfach auf dynamisch definierbare vale viewer zugreifen kann. Das werden wir mit keywords und hiccup syntax beibehalten:
+[:p/vega x]
+[:p/leaflet x]
+[:p/custom-plot x]
+Clojurescript muss eine keyword mapping tabelle haben.
+Ist ein keyword nicht gemappt kommt error komponente zur anzeige
+Die value viewer werden in eine lazy load Komponente gewrappt - solange klasse bucht geladen ist kommt 'loading viewer…' 
+Wenn (type x) = atom und clojure => clojure muss value aenderung ueber websocket pushen.
+
+
 
 
 ## Licence
