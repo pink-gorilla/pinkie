@@ -2,6 +2,7 @@
   "inject html string to reagent. allows script injection"
   (:require
    [reagent.core :as reagent]
+   [reagent.dom]
    [pinkgorilla.ui.pinkie :refer [register-tag]]))
 
 ; this was moved from notebook.
@@ -65,7 +66,7 @@
     (reagent/create-class
      {:display-name        "htmlwrapper"                 ;; for more helpful warnings & errors
          ;; :component-will-unmount (fn [this])
-      :component-did-mount (fn [this] (process-scripts! (reagent/dom-node this)))
+      :component-did-mount (fn [this] (process-scripts! (reagent.dom/dom-node this)))
 
          ;; :component-did-update (fn [this old-argv])
       :reagent-render      (fn []
