@@ -1,7 +1,8 @@
 (ns pinkgorilla.ui.pinkie
   (:require
+   [clojure.string :as str]
    [reagent.core :as r :refer [atom]]
-   [reagent.impl.template]
+   [reagent.impl.template :refer [HiccupTag cached-parse]]
  ;  [taoensso.timbre :refer-macros (info)]
    [clojure.walk :refer [prewalk]] ; cljs 1.10 still does not have walk fixed
   ; [pinkgorilla.ui.walk :refer [prewalk]] ; TODO: replace this as soon as 1.11 cljs is out.
@@ -58,10 +59,12 @@
 
 (defn html5-tag? [tag]
   (let [; reagent also has :div#main.big which we have to transform to :div
-        tag-typed (reagent.impl.template/cached-parse tag) ; #js {:name "<>", :id nil, :class nil, :custom false}
+        tag-typed (cached-parse tag) ; #js {:name "<>", :id nil, :class nil, :custom false}
         ;_ (.log js/console "tag typed:" (pr-str tag-typed))
-        tag-clean (keyword (:name (js->clj tag-typed :keywordize-keys true)))
-        ;_ (.log js/console "tag clean:" tag-clean)
+        tag-clean (.-tag tag-typed)
+        tag-clean (if (nil? tag-clean) nil (keyword tag-clean))
+       ; tag-clean (keyword (:name (js->clj tag-typed :keywordize-keys true)))
+       ; _ (.log js/console "tag clean:" tag-clean)
         ]
     (contains? html5-tags tag-clean)))
 
@@ -120,5 +123,43 @@
        (replace-tag-in-hiccup-vector x)
        x))
    hiccup-vector))
+
+;; Hiccup accepts Style as string, but Reagent does not.
+;; Example: [:rect {:width "100%", :height "100%", :style "stroke: none; fill: #FFFFFF;"}]  
+
+(defn to-map-style [s]
+  (let [style-vec (map #(str/split % #":") (str/split s #";"))]
+    (into {}
+          (for [[k v] style-vec]
+            [(keyword (str/trim k)) (str/trim v)]))))
+
+(defn is-style? [x]
+  ;(println "is-style? " x)
+  (if (and (vector? x)
+           (= 2 (count x))
+           (= (first x) :style)
+           (string? (second x)))
+    true
+    false))
+
+(defn replace-style [x]
+  (println "pinkie replacing string style: " x)
+  (into [] (assoc x 1 (to-map-style (last x)))))
+
+(defn convert-style-as-strings-to-map
+  "resolve function-as symbol to function references in the reagent-hickup-map.
+   Leaves regular hiccup data unchanged."
+  [hiccup-vector]
+  (prewalk
+   (fn [x]
+     (if (is-style? x)
+       (replace-style x)
+       x))
+   hiccup-vector))
+
+(comment
+  (to-map-style "background-color: blue; font-size: 14px")
+;=> {:background-color "blue" :font-size "14px"}  
+  )
 
 

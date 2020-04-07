@@ -1,8 +1,8 @@
-(ns pinkgorilla.ui.tag-test
+(ns pinkgorilla.ui.pinkie-test
   (:require
    [cljs.test :refer-macros [async deftest is testing]]
    [clojure.walk :refer [prewalk]]
-   [pinkgorilla.ui.pinkie :refer [pinkie-tag? html5-tag? pinkie-exclude? should-replace? tag-inject unknown-tag]]
+   [pinkgorilla.ui.pinkie :refer [pinkie-tag? html5-tag? pinkie-exclude? should-replace? tag-inject unknown-tag convert-style-as-strings-to-map]]
    [pinkgorilla.ui.text :refer [text]]))
 
 (deftest clojure-keyword-test []
@@ -96,3 +96,13 @@
        (tag-inj-demo [:a 1 :b [2 3] :c 4 :d {:e 5 :f 6}])
        ["_a" 1 :b [2 3] :c 4 :d {:e 5 :f 6}])))
 
+;; HICCUP STYLE STRING => MAP test
+;; 
+(deftest style-replacer-test []
+  (let [style-ok [:rect {:width "100%" :height "100%"
+                         :style {:background-color "blue" :font-size "14px"}}]
+        style-string [:rect {:width "100%" :height "100%"
+                             :style "background-color: blue; font-size: 14px"}]]
+    (is (= style-ok (convert-style-as-strings-to-map style-string))) ; string ->map
+    (is (= style-ok (convert-style-as-strings-to-map style-ok))) ; no further replacing if already hiccup
+    ))
