@@ -4,7 +4,7 @@
    [reagent.core :as r :refer [atom]]
    [reagent.impl.template :refer [HiccupTag cached-parse]]
  ;  [taoensso.timbre :refer-macros (info)]
-   [clojure.walk :refer [prewalk]] ; cljs 1.10 still does not have walk fixed
+   [clojure.walk :refer [prewalk postwalk]] ; cljs 1.10 still does not have walk fixed
   ; [pinkgorilla.ui.walk :refer [prewalk]] ; TODO: replace this as soon as 1.11 cljs is out.
    ))
 
@@ -162,4 +162,26 @@
 ;=> {:background-color "blue" :font-size "14px"}  
   )
 
+
+;; RENDER-AS
+
+
+(defn render-as? [hiccup-vector]
+  (contains? (meta hiccup-vector) :p/render-as))
+
+(defn wrap-renderer [x]
+  (let [renderer (:p/render-as (meta x))]
+    (println "pinkie wrapping renderer " renderer " to: " x)
+    [renderer x]))
+
+(defn convert-render-as
+  "resolve function-as symbol to function references in the reagent-hickup-map.
+   Leaves regular hiccup data unchanged."
+  [hiccup-vector]
+  (postwalk
+   (fn [x]
+     (if (render-as? x)
+       (wrap-renderer x)
+       x))
+   hiccup-vector))
 

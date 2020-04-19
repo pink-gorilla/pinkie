@@ -2,7 +2,7 @@
   (:require
    [cljs.test :refer-macros [async deftest is testing]]
    [clojure.walk :refer [prewalk]]
-   [pinkgorilla.ui.pinkie :refer [pinkie-tag? html5-tag? pinkie-exclude? should-replace? tag-inject unknown-tag convert-style-as-strings-to-map]]
+   [pinkgorilla.ui.pinkie :refer [pinkie-tag? html5-tag? pinkie-exclude? should-replace? tag-inject unknown-tag convert-style-as-strings-to-map convert-render-as]]
    [pinkgorilla.ui.text :refer [text]]))
 
 (deftest clojure-keyword-test []
@@ -106,3 +106,13 @@
     (is (= style-ok (convert-style-as-strings-to-map style-string))) ; string ->map
     (is (= style-ok (convert-style-as-strings-to-map style-ok))) ; no further replacing if already hiccup
     ))
+
+;; render-as test
+;; 
+(deftest render-as-test []
+  (let [raw ^{:p/render-as :p/vega} {:spec 123}
+        ok [:p/vega {:spec 123}]
+        raw-with-hiccup [:div [:h1 "test"] ^{:p/render-as :p/vega} {:spec 123}]
+        ok-with-hiccup [:div [:h1 "test"] [:p/vega {:spec 123}]]]
+    (is (= ok (convert-render-as raw)))
+    (is (= ok-with-hiccup (convert-render-as raw-with-hiccup)))))
