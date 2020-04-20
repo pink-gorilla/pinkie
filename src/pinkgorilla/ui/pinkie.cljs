@@ -172,7 +172,7 @@
 (defn wrap-renderer [x]
   (let [renderer (:p/render-as (meta x))]
     (println "pinkie wrapping renderer " renderer " to: " x)
-    [renderer x]))
+    ^:R [renderer x]))
 
 (defn convert-render-as
   "resolve function-as symbol to function references in the reagent-hickup-map.
