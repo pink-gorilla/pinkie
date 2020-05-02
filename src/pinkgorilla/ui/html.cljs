@@ -1,5 +1,4 @@
 (ns pinkgorilla.ui.html
-  "inject html string to reagent. allows script injection"
   (:require
    [reagent.core :as reagent]
    [reagent.dom]
@@ -61,6 +60,7 @@
           scripts))))
 
 (defn html
+  "inject html string to reagent. allows script injection"
   [html]
   (when (string? html)
     (reagent/create-class

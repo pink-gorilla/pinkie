@@ -1,8 +1,4 @@
 (ns pinkgorilla.ui.gtable
-  "a reagent component to display an array of arrays 
-   as html table
-   individual items are reagent components
-   successor to legacy-gorilla table-view"
   (:require
    [pinkgorilla.ui.pinkie :refer [register-tag]]))
 
@@ -13,6 +9,10 @@
                r)))
 
 (defn gtable
+  "a reagent component to display an array of arrays 
+   as html table
+   individual items are reagent components
+   successor to legacy-gorilla table-view"
   [rows]
   [:table
    [:tbody

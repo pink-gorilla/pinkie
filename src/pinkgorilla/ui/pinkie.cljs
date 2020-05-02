@@ -6,7 +6,7 @@
  ;  [taoensso.timbre :refer-macros (info)]
    [clojure.walk :refer [prewalk postwalk]] ; cljs 1.10 still does not have walk fixed
   ; [pinkgorilla.ui.walk :refer [prewalk]] ; TODO: replace this as soon as 1.11 cljs is out.
-   ))
+   [pinkgorilla.ui.htmltags :refer [html5-tags]]))
 
 (def custom-renderers (atom {}))
 
@@ -31,31 +31,6 @@
 (defn clj->json
   [ds]
   (.stringify js/JSON (clj->js ds)))
-
-(def html5-tags
-  #{:<>   ; this is technically the reagent-ignore keyword
-    :> ; another reagent tag
-    :a :abbr :address :area :article :aside :audio
-    :b :base :bdi :bdo :blockquote :body :br :button
-    :canvas :caption :cite :code :col :colgroup
-    :data :datalist :dd :del :dfn :div :dl :dt
-    :em :embed
-    :fieldset :figcaption :figure :footer :form
-    :h1 :h2 :h3 :h4 :h5 :h6 :head :header :hr :html
-    :i :iframe :img :input :ins
-    :kbd :keygen
-    :label :legend :li :link
-    :main :map :mark :meta :meter
-    :nav :noscript
-    :object :ol :optgroup :option :output
-    :p :param :pre :progress
-    :q
-    :rb :rp :rt :rtc :ruby
-    :s :samp :script :section :select :small :source :span :strong :style :sub :sup
-    :table :tbody :td :template :textarea :tfoot :th :thead :time :title :tr :track
-    :u :ul
-    :var :video
-    :wbr})
 
 (defn html5-tag? [tag]
   (let [; reagent also has :div#main.big which we have to transform to :div
@@ -105,7 +80,7 @@
    then it gets replaced with the react function,
    otherwise keyword remains"
   [hiccup-vector]
-  (let [_ (.log js/console "pinkie replacing: " (pr-str hiccup-vector))
+  (let [;_ (.log js/console "pinkie replacing: " (pr-str hiccup-vector))
         tag (first hiccup-vector)
         render-function (tag @custom-renderers)]
     (if (nil? render-function)

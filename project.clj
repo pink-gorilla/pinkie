@@ -2,31 +2,42 @@
   :description "Gorilla Renderable UI - cljs based rendering for Pink Gorilla Notebook."
   :url "https://github.com/pink-gorilla/gorilla-renderable-ui"
   :license {:name "MIT"}
-  ;:deploy-repositories [["releases" :clojars]]
   :deploy-repositories [["releases" {:url           "https://clojars.org/repo"
                                      :username      :env/release_username
                                      :password      :env/release_password
                                      :sign-releases false}]]
+  
+  ;; TODO: prep tasks breaks alias???
+  ;; :prep-tasks ["build-shadow-ci"]
+   
+  :release-tasks [["vcs" "assert-committed"]
+                  ["bump-version" "release"]
+                  ["vcs" "commit" "Release %s"]
+                  ["vcs" "tag" "v" "--no-sign"]
+                  ["deploy"]
+                  ["bump-version"]
+                  ["vcs" "commit" "Begin %s"]
+                  ["vcs" "push"]]
+
   :dependencies [;; [org.clojure/clojure "1.10.1"]
                  ;; [org.clojure/clojurescript "1.10.520"]
                  [org.pinkgorilla/gorilla-renderable "3.0.5"]
-                 [reagent "0.10.0" ; was 0.8.1
+                 [reagent "0.10.0"
                   :exclusions [org.clojure/tools.reader
                                cljsjs/react
                                cljsjs/react-dom]]
                  ; awb99: adding timbre logging here would fuck up the kernel-shadowdeps bundle compilation.
                  ;[com.taoensso/timbre "4.10.0"]             ; clojurescript logging
                  [com.lucasbradstreet/cljs-uuid-utils "1.0.2"] ;; awb99: in encoding, and clj/cljs proof
-                 
+
                  ; re-com uses core.async; therefore we cannot include it in self-hosted clojurescript bundles
                  ; widgets that use re-com are in notebook
                  ;[re-com "2.6.0"]      ; reagent reuseable ui components
                  ]
 
   ;resources that will be added to the jar
-  :resource-paths  ["resources"] ; ^:replace
-
-
+  ;:resource-paths  ["resources"] ; ^:replace
+  
   ;; :source-paths ["src"]
   ;; :test-paths ["test"]
   :plugins [[lein-shell "0.5.0"]]
@@ -48,28 +59,16 @@
                                             merge-meta          [[:inner 0]]
                                             try-if-let          [[:block 1]]}}}}
 
-  ;; TODO: prep tasks breaks alias???
-  ;; :prep-tasks ["build-shadow-ci"]
-
   :aliases {"build-shadow-ci" ^{:doc "Build shadow-cljs ci"}
-            ["run" "-m" "shadow.cljs.devtools.cli" "compile" ":ci"]     
-            
+            ["run" "-m" "shadow.cljs.devtools.cli" "compile" ":ci"]
+
             "test-run" ^{:doc "Test compiled JavaScript."}
             ["shell" "./node_modules/karma/bin/karma" "start" "--single-run"]
-            
-            "test-js" ^{:doc "Compile & Run JavaScript."}
-            ["do" "build-shadow-ci" [ "test-run"]]
-            
-            "bump-version"    ^{:doc "Roll versions artefact version"}
-            ["change" "version" "leiningen.release/bump-version"]}
 
-  :release-tasks [["vcs" "assert-committed"]
-                  ["bump-version" "release"]
-                  ["vcs" "commit" "Release %s"]
-                  ["vcs" "tag" "v" "--no-sign"]
-                  ["deploy"]
-                  ["bump-version"]
-                  ["vcs" "commit" "Begin %s"]
-                  ["vcs" "push"]])
+            "test-js" ^{:doc "Compile & Run JavaScript."}
+            ["do" "build-shadow-ci" ["test-run"]]
+
+            "bump-version"    ^{:doc "Roll versions artefact version"}
+            ["change" "version" "leiningen.release/bump-version"]})
 
 
