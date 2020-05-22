@@ -43,11 +43,8 @@
         ]
     (contains? html5-tags tag-clean)))
 
-(def pinkie-namespace (namespace :p/test))
-
 (defn pinkie-tag? [tag]
-  (let [kw-namespace (namespace tag)]
-    (= pinkie-namespace kw-namespace)))
+  (and (keyword? tag) (namespace tag)))
 
 (defn pinkie-exclude? [hiccup-vector]
   (contains? (meta hiccup-vector) :r))
