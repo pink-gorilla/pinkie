@@ -11,22 +11,22 @@
   (is (= "bar" (str (name :p/bar)))))
 
 (deftest pinkie-keyword-test []
-  (is (= false (pinkie-tag? :h1)))
-  (is (= false (pinkie-tag? :vega)))
-  (is (= false (pinkie-tag? :bongo/bar)))
-  (is (= false (pinkie-tag? :pronto/baz)))
-  (is (= true (pinkie-tag? :p/vega))))
+  (is (not (pinkie-tag? :h1)))
+  (is (not (pinkie-tag? :vega)))
+  (is (pinkie-tag? :bongo/bar))
+  (is (pinkie-tag? :pronto/baz))
+  (is (pinkie-tag? :p/vega)))
 
 (deftest html5-keyword-test []
-  (is (= true (html5-tag? :h1)))
-  (is (= true (html5-tag? :p)))
-  (is (= true (html5-tag? :h1.big)))
-  (is (= true (html5-tag? :h1#id-big)))
-  (is (= true (html5-tag? :h1#id.big)))
-  (is (= false (html5-tag? :bongo/baz)))
-  (is (= false (html5-tag? :bongo/baz.big)))
-  (is (= false (html5-tag? :bongo/baz#id)))
-  (is (= false (html5-tag? :bongo/baz#id.big))))
+  (is (html5-tag? :h1))
+  (is (html5-tag? :p))
+  (is (html5-tag? :h1.big))
+  (is (html5-tag? :h1#id-big))
+  (is (html5-tag? :h1#id.big))
+  (is (not (html5-tag? :bongo/baz)))
+  (is (not (html5-tag? :bongo/baz.big)))
+  (is (not (html5-tag? :bongo/baz#id)))
+  (is (not (html5-tag? :bongo/baz#id.big))))
 
 (deftest vector-test  []
   (is (= (vector? [:text 1]) true))
@@ -38,15 +38,15 @@
   (is (= false (pinkie-exclude? [:text "hi"]))))
 
 (deftest should-replace-test  []
-  (is (= false (should-replace? {:text 1 :best 2}))) ; map is no hiccup vector
-  (is (= false (should-replace? [:p "hello"]))) ; html5 tag does not get replaced
-  (is (= false (should-replace? [:p.big "hello"]))) ; html5 tag (with class)does not get replaced
-  (is (= false (should-replace? [:text "hello"]))) ; no pinkie tag
-  (is (= false (should-replace? ^:r [:p/text "hello"]))) ; pinkie tag, but pinkie exclude
-  (is (= true (should-replace? ^:R [:p/text "hello"]))) ;pinkie tag, with pinkie include
-  (is (= true (should-replace? [:p/text "hello"]))) ;pinkie tag
-  (is (= true (should-replace? [:p/unknown "hello"]))) ; pinkie tag, that is unknown (but this does not matter if we SHOULD replace)
-  (is (= false (should-replace? [:p "hello"]))))
+  (is (not (should-replace? {:text 1 :best 2}))) ; map is no hiccup vector
+  (is (not (should-replace? [:p "hello"]))) ; html5 tag does not get replaced
+  (is (not (should-replace? [:p.big "hello"]))) ; html5 tag (with class)does not get replaced
+  (is (not (should-replace? [:text "hello"]))) ; no pinkie tag
+  (is (not (should-replace? ^:r [:p/text "hello"]))) ; pinkie tag, but pinkie exclude
+  (is (should-replace? ^:R [:p/text "hello"])) ;pinkie tag, with pinkie include
+  (is (should-replace? [:p/text "hello"])) ;pinkie tag
+  (is (should-replace? [:p/unknown "hello"])) ; pinkie tag, that is unknown (but this does not matter if we SHOULD replace)
+  (is (not (should-replace? [:p "hello"]))))
 
 
 ;; test if the keyword :math gets replaced with math function
@@ -69,7 +69,7 @@
 
 
 ;;;
-;;; simple test; mainly make sure clojure code has not changed 
+;;; simple test; mainly make sure clojure code has not changed
 ;;; (there are breaking changes coming - see pinkgorilla.ui.walk)
 ;;;
 
@@ -97,18 +97,18 @@
        ["_a" 1 :b [2 3] :c 4 :d {:e 5 :f 6}])))
 
 ;; HICCUP STYLE STRING => MAP test
-;; 
+;;
 (deftest style-replacer-test []
   (let [style-ok [:rect {:width "100%" :height "100%"
                          :style {:background-color "blue" :font-size "14px"}}]
         style-string [:rect {:width "100%" :height "100%"
                              :style "background-color: blue; font-size: 14px"}]]
     (is (= style-ok (convert-style-as-strings-to-map style-string))) ; string ->map
-    (is (= style-ok (convert-style-as-strings-to-map style-ok))) ; no further replacing if already hiccup
-    ))
+    (is (= style-ok (convert-style-as-strings-to-map style-ok))))) ; no further replacing if already hiccup
+
 
 ;; render-as test
-;; 
+;;
 (deftest render-as-test []
   (let [raw ^{:p/render-as :p/vega} {:spec 123}
         ok [:p/vega {:spec 123}]
