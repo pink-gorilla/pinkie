@@ -8,11 +8,4 @@
    [pinkgorilla.ui.jsrender] ; module loader 
    [pinkgorilla.ui.text] ; text with newline
    [pinkgorilla.ui.gtable] ; table (legacy gorilla compatibility)
-
-   ; ui widgets
-   [pinkgorilla.widget.acombo]
-   [pinkgorilla.widget.ainput]
-   ; recom widgets: not suitable for self hosted clojurescript
-   ;[pinkgorilla.widget.combo]
-   ;[pinkgorilla.widget.slider]
    ))
