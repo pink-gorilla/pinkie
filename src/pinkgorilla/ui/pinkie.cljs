@@ -63,8 +63,8 @@
   (if (hiccup-vector? hiccup-vector)
     (let [tag (first hiccup-vector)]
       (and (not (pinkie-exclude? hiccup-vector))
-           (not (html5-tag? tag))
-           (pinkie-tag? tag)))
+           (pinkie-tag? tag)
+           #_(not (html5-tag? tag))))
     false))
 
 (defn unknown-tag

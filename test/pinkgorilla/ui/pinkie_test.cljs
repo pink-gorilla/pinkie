@@ -2,7 +2,7 @@
   (:require
    [cljs.test :refer-macros [async deftest is testing]]
    [clojure.walk :refer [prewalk]]
-   [pinkgorilla.ui.pinkie :refer [pinkie-tag? html5-tag? pinkie-exclude? should-replace? tag-inject unknown-tag convert-style-as-strings-to-map convert-render-as]]
+   [pinkgorilla.ui.pinkie :refer [pinkie-tag? html5-tag? pinkie-exclude? should-replace? tag-inject unknown-tag convert-style-as-strings-to-map convert-render-as register-tag]]
    [pinkgorilla.ui.text :refer [text]]))
 
 (deftest clojure-keyword-test []
@@ -10,12 +10,18 @@
   (is (= "p" (str (namespace :p/bar))))
   (is (= "bar" (str (name :p/bar)))))
 
+(defn button []
+  [:p "I am a button"])
+
+(register-tag :p/button button)
+
 (deftest pinkie-keyword-test []
   (is (= false (pinkie-tag? :h1)))
   (is (= false (pinkie-tag? :vega)))
   (is (= false (pinkie-tag? :bongo/bar)))
   (is (= false (pinkie-tag? :pronto/baz)))
-  (is (= true (pinkie-tag? :p/vega))))
+  (is (= true (pinkie-tag? :p/vega)))
+  (is (= true (pinkie-tag? :p/button))))
 
 (deftest html5-keyword-test []
   (is (= true (html5-tag? :h1)))
@@ -46,7 +52,8 @@
   (is (= true (should-replace? ^:R [:p/text "hello"]))) ;pinkie tag, with pinkie include
   (is (= true (should-replace? [:p/text "hello"]))) ;pinkie tag
   (is (= true (should-replace? [:p/unknown "hello"]))) ; pinkie tag, that is unknown (but this does not matter if we SHOULD replace)
-  (is (= false (should-replace? [:p "hello"]))))
+  (is (= false (should-replace? [:p "hello"])))
+  (is (= true (should-replace? [:p/button "hello"]))))
 
 
 ;; test if the keyword :math gets replaced with math function

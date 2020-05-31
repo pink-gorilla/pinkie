@@ -11,7 +11,6 @@
 
    ; ui widgets
    [pinkgorilla.widget.acombo]
-   [pinkgorilla.widget.greeter]
    [pinkgorilla.widget.ainput]
    ; recom widgets: not suitable for self hosted clojurescript
    ;[pinkgorilla.widget.combo]
