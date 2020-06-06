@@ -1,7 +1,7 @@
 (ns pinkgorilla.ui.default-setup
   (:require
    [pinkgorilla.ui.pinkie] ; tag injection
-   [pinkgorilla.ui.widget] ; create atom state from clojure
+   [pinkgorilla.ui.pinkie-render] ; create atom state from clojure
 
    ; reagent components
    [pinkgorilla.ui.html] ; html with script injection
