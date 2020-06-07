@@ -37,7 +37,7 @@
 
 (deftest registry-meta-test []
   (is (> (count (renderers-with-category)) 0)) ; some components have to have valid category
-  (is (= (get-in (get-component :p/phtml) [:meta :category]) :ui-general)) ;checks if register/lookup works and meta storage
+  (is (= (get-in (get-component :p/phtml) [:meta :category]) :ui)) ;checks if register/lookup works and meta storage
   (is (= (:category (fn-meta render-js)) :pinkie))) ;render js has to be validly defined
 
 
