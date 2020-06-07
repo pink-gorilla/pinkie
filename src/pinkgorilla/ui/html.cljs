@@ -59,7 +59,7 @@
               (.replaceWith script newScript)))
           scripts))))
 
-(defn ^{:category :ui-general}
+(defn ^{:category :ui}
   html
   "inject html string to reagent. allows script injection"
   [html]

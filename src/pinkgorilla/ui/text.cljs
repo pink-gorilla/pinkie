@@ -8,7 +8,7 @@
    [:span.font-mono.text-lg.whitespace-pre t]
    [:br]])
 
-(defn ^{:category :ui-data}
+(defn ^{:category :ui}
   text
   "Render text (as string) to html
    works with \\n (newlines)

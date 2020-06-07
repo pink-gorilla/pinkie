@@ -8,7 +8,7 @@
                  [:td {:key (str "table-col-" i)} c])
                r)))
 
-(defn ^{:category :ui-data}
+(defn ^{:category :layout}
   gtable
   "a reagent component to display an array of arrays 
    as html table
