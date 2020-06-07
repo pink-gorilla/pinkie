@@ -1,4 +1,4 @@
-(defproject org.pinkgorilla/gorilla-renderable-ui "0.2.1-SNAPSHOT"
+(defproject org.pinkgorilla/gorilla-renderable-ui "0.2.1"
   :description "Gorilla Renderable UI - cljs based rendering for Pink Gorilla Notebook."
   :url "https://github.com/pink-gorilla/gorilla-renderable-ui"
   :license {:name "MIT"}
