@@ -1,23 +1,64 @@
 (ns pinkgorilla.ui.pinkie
   (:require
    [clojure.string :as str]
-   [reagent.core :as r :refer [atom]]
-   [reagent.impl.template :refer [HiccupTag cached-parse]]
- ;  [taoensso.timbre :refer-macros (info)]
    [clojure.walk :refer [prewalk postwalk]] ; cljs 1.10 still does not have walk fixed
-  ; [pinkgorilla.ui.walk :refer [prewalk]] ; TODO: replace this as soon as 1.11 cljs is out.
-   [pinkgorilla.ui.htmltags :refer [html5-tags]]))
+   #?(:cljs [cljs.pprint])
+   #?(:cljs [reagent.core :as r :refer [atom]])
+   #?(:cljs [reagent.impl.template :refer [HiccupTag cached-parse]])
+ ;  [taoensso.timbre :refer-macros (info)]
+   ; [pinkgorilla.ui.walk :refer [prewalk]] ; TODO: replace this as soon as 1.11 cljs is out.
+   ))
 
-(def custom-renderers (atom {}))
+; notes
+; has to be cljc file, because register-tag is a macro
 
-(defn renderer-list []
-  (map #(assoc {} :k (first %) :r (pr-str (last %))) (seq @custom-renderers)))
+;; DEPRECIATED:
+; (def custom-renderers (atom {}))
+;
+;(defn register-tag [k v]
+;  (swap! custom-renderers assoc k v))
+;
+;(defn get-renderer [tag]
+;  (tag @custom-renderers))
 
-(defn register-tag [k v]
-  (swap! custom-renderers assoc k v)
+;(defn renderer-info [[k fun]]
+;  {:k k
+;   :r (pr-str fun)})
+
+;(defn renderer-list []
+;  (map renderer-info (seq @custom-renderers)))
+
+; new code with macro (to capture meta data)
+
+(def component-registry (atom {}))
+
+(defmacro register-component [k func]
+  `(swap! component-registry assoc ~k {:meta (meta (var ~func))
+                                       :tag ~k
+                                       :fun ~func}))
+
+(defn get-component [tag]
+  (tag @component-registry))
+
+(defn get-renderer [tag]
+  (:fun (get-component tag)))
+
+(defn component-list []
+  (vals @component-registry))
+
+#?(:cljs
+   (defn component-list->str []
+     (with-out-str
+       (cljs.pprint/print-table
+        [:tag :ns :name :category]
+        (map #(merge (:meta %) {:tag (:tag %) :fun (:fun %)}) (component-list))))))
+
+#?(:cljs (defn print-components []
+           (println
+            (component-list->str))))
+
   ; it would be ideal to let reagent deal with this, but the below line did not work.
   ;(gobj/set reagent.impl.template/tag-name-cache (name k) v)
-  )
 
 ; mfikes approach would be great, but does not work
 ; https://github.com/reagent-project/reagent/issues/362
@@ -28,20 +69,9 @@
 #_(defn register-tag3 [kw c]
     (register-tag2 (name kw) (r/as-element c)))
 
-(defn clj->json
-  [ds]
-  (.stringify js/JSON (clj->js ds)))
-
-(defn html5-tag? [tag]
-  (let [; reagent also has :div#main.big which we have to transform to :div
-        tag-typed (cached-parse tag) ; #js {:name "<>", :id nil, :class nil, :custom false}
-        ;_ (.log js/console "tag typed:" (pr-str tag-typed))
-        tag-clean (.-tag tag-typed)
-        tag-clean (if (nil? tag-clean) nil (keyword tag-clean))
-       ; tag-clean (keyword (:name (js->clj tag-typed :keywordize-keys true)))
-       ; _ (.log js/console "tag clean:" tag-clean)
-        ]
-    (contains? html5-tags tag-clean)))
+#?(:cljs (defn clj->json
+           [ds]
+           (.stringify js/JSON (clj->js ds))))
 
 (def pinkie-namespace (namespace :p/test))
 
@@ -82,9 +112,9 @@
   [hiccup-vector]
   (let [;_ (.log js/console "pinkie replacing: " (pr-str hiccup-vector))
         tag (first hiccup-vector)
-        render-function (tag @custom-renderers)]
+        render-function (get-renderer tag)]
     (if (nil? render-function)
-      (do (.log js/console "pinkie unknown tag: " (name tag))
+      (do (println "pinkie unknown tag: " (name tag))
           (unknown-tag tag))
       (into [] (assoc hiccup-vector 0 render-function)))))
 

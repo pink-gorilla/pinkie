@@ -1,4 +1,4 @@
-(ns pinkgorilla.ui.core-test
+(ns pinkgorilla.ui.renderable-core-test
   (:require
    [cljs.test :refer-macros [async deftest is testing]]
    [pinkgorilla.ui.gorilla-renderable :refer [render]]
@@ -7,7 +7,6 @@
 ; Type Tests	array? fn? number? object? string?
 ; instance?
 ; 	fn?  ifn?
-
 
 (deftest renderable-nil
   (is (= (render nil)
@@ -67,6 +66,6 @@
   ;(println "type is: " (type u))
   (is (= (render u)
          {:type :html
-          :content [:span {:class "clj-unknown"} "#pinkgorilla.ui.core-test.MyRecord{:r 3}"]
-          :value "#pinkgorilla.ui.core-test.MyRecord{:r 3}"})))
+          :content [:span {:class "clj-unknown"} "#pinkgorilla.ui.renderable-core-test.MyRecord{:r 3}"]
+          :value "#pinkgorilla.ui.renderable-core-test.MyRecord{:r 3}"})))
 

@@ -2,7 +2,7 @@
   (:require
    [reagent.core :as reagent]
    [reagent.dom]
-   [pinkgorilla.ui.pinkie :refer [register-tag]]))
+   [pinkgorilla.ui.pinkie :refer-macros [register-component]]))
 
 ; this was moved from notebook.
 
@@ -59,7 +59,8 @@
               (.replaceWith script newScript)))
           scripts))))
 
-(defn html
+(defn ^{:category :ui-general}
+  html
   "inject html string to reagent. allows script injection"
   [html]
   (when (string? html)
@@ -72,4 +73,4 @@
       :reagent-render      (fn []
                              [:div {:dangerouslySetInnerHTML {:__html html}}])})))
 
-(register-tag :p/phtml html) ;phtml because it may not equal a html keyword
+(register-component :p/phtml html) ;phtml because it may not equal a html keyword

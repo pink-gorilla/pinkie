@@ -34,7 +34,18 @@
   [error-boundary
    [render-function-impl data]])
 
-(defn render-js [{:keys [f data]}]
+(defn ^{:category :pinkie}
+  render-js
+  "reagent component that renders a js function,
+       calls 
+       parameters:
+         f    the js render function
+              gets js data
+         data a clojure datastructure that will be converted to js
+              before calling f"
+  [{:keys [f data]}]
   (let [data-js {:f f :data (clj->js data)}]
     [render-clj data-js]))
+
+
 

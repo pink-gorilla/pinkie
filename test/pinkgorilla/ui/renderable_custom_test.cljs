@@ -1,4 +1,4 @@
-(ns pinkgorilla.ui.custom-renderable-test
+(ns pinkgorilla.ui.renderable-custom-test
   (:require
    [cljs.test :refer-macros [async deftest is testing]]
    [pinkgorilla.ui.gorilla-renderable :refer [Renderable render]]))
@@ -25,7 +25,7 @@
      }))
 
 (deftest custom-dummy-renderable
-  (is (= (pr-str (Bongo. {:a 1 :b "2"})) "#pinkgorilla.ui.custom-renderable-test.Bongo{:specs {:a 1, :b \"2\"}}"))
+  (is (= (pr-str (Bongo. {:a 1 :b "2"})) "#pinkgorilla.ui.renderable-custom-test.Bongo{:specs {:a 1, :b \"2\"}}"))
   (is (= (render (Bongo. {:a 1 :b "2"})) {:type :html :content {:a 1 :b "2"}})))
 
 (deftest renderable-custom

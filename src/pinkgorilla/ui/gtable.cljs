@@ -1,6 +1,6 @@
 (ns pinkgorilla.ui.gtable
   (:require
-   [pinkgorilla.ui.pinkie :refer [register-tag]]))
+   [pinkgorilla.ui.pinkie :refer-macros [register-component]]))
 
 (defn grow [r]
   (into [:tr] (map-indexed
@@ -8,7 +8,8 @@
                  [:td {:key (str "table-col-" i)} c])
                r)))
 
-(defn gtable
+(defn ^{:category :ui-data}
+  gtable
   "a reagent component to display an array of arrays 
    as html table
    individual items are reagent components
@@ -21,4 +22,4 @@
        ^:key (str "table-row-" i) [grow r])
      rows)]])
 
-(register-tag :p/gtable gtable)
+(register-component :p/gtable gtable)

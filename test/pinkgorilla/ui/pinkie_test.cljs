@@ -2,18 +2,16 @@
   (:require
    [cljs.test :refer-macros [async deftest is testing]]
    [clojure.walk :refer [prewalk]]
-   [pinkgorilla.ui.pinkie :refer [pinkie-tag? html5-tag? pinkie-exclude? should-replace? tag-inject unknown-tag convert-style-as-strings-to-map convert-render-as register-tag]]
-   [pinkgorilla.ui.text :refer [text]]))
+   [pinkgorilla.ui.pinkie :refer [pinkie-tag? pinkie-exclude? should-replace? tag-inject unknown-tag
+                                  convert-style-as-strings-to-map convert-render-as]]
+   [pinkgorilla.ui.text :refer [text]]
+   [pinkgorilla.ui.pinkie-registry-test] ; for testbutton registration
+   ))
 
 (deftest clojure-keyword-test []
   (is (= ":p/bar" (str :p/bar)))
   (is (= "p" (str (namespace :p/bar))))
   (is (= "bar" (str (name :p/bar)))))
-
-(defn button []
-  [:p "I am a button"])
-
-(register-tag :p/button button)
 
 (deftest pinkie-keyword-test []
   (is (= false (pinkie-tag? :h1)))
@@ -21,18 +19,7 @@
   (is (= false (pinkie-tag? :bongo/bar)))
   (is (= false (pinkie-tag? :pronto/baz)))
   (is (= true (pinkie-tag? :p/vega)))
-  (is (= true (pinkie-tag? :p/button))))
-
-(deftest html5-keyword-test []
-  (is (= true (html5-tag? :h1)))
-  (is (= true (html5-tag? :p)))
-  (is (= true (html5-tag? :h1.big)))
-  (is (= true (html5-tag? :h1#id-big)))
-  (is (= true (html5-tag? :h1#id.big)))
-  (is (= false (html5-tag? :bongo/baz)))
-  (is (= false (html5-tag? :bongo/baz.big)))
-  (is (= false (html5-tag? :bongo/baz#id)))
-  (is (= false (html5-tag? :bongo/baz#id.big))))
+  (is (= true (pinkie-tag? :p/testbutton))))
 
 (deftest vector-test  []
   (is (= (vector? [:text 1]) true))
@@ -53,7 +40,7 @@
   (is (= true (should-replace? [:p/text "hello"]))) ;pinkie tag
   (is (= true (should-replace? [:p/unknown "hello"]))) ; pinkie tag, that is unknown (but this does not matter if we SHOULD replace)
   (is (= false (should-replace? [:p "hello"])))
-  (is (= true (should-replace? [:p/button "hello"]))))
+  (is (= true (should-replace? [:p/testbutton "hello"]))))
 
 
 ;; test if the keyword :math gets replaced with math function
