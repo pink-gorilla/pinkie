@@ -30,7 +30,12 @@
 (defn ^{:category :pinkie}
   pinkie-render
   "renders a reagent hiccup vector that can contain pinkie components.
-   wrapped with react error boundary."
+   wrapped with react error boundary.
+   
+   [:p/pinkie {:content {:map-keywords true
+               :fix-style false
+               :hiccup [:p/vega spec]}}]
+   "
   [output]
   [error-boundary
    [pinkie-render-unsafe output]])

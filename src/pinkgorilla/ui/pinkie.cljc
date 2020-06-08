@@ -14,10 +14,7 @@
 
 ;; DEPRECIATED:
 ; (def custom-renderers (atom {}))
-;
-;(defn register-tag [k v]
-;  (swap! custom-renderers assoc k v))
-;
+
 ;(defn get-renderer [tag]
 ;  (tag @custom-renderers))
 
@@ -32,9 +29,20 @@
 
 (def component-registry (atom {}))
 
-(defmacro register-component [k func]
-  `(swap! component-registry assoc ~k {:meta (meta (var ~func))
-                                       :tag ~k
+(defn register-tag 
+  "DEPRECIATED: please use register-component macro instead.
+   registers a reagent component in the pinkie registry."
+  [pinkie-tag func]
+  (swap! component-registry assoc pinkie-tag {:meta {}
+                                     :tag pinkie-tag
+                                     :fun ~func}))
+
+(defmacro register-component 
+  "registers a reagent component in the pinkie registry.
+   Captures meta-data of the function symbol."
+  [pinkie-tag func]
+  `(swap! component-registry assoc ~pinkie-tag {:meta (meta (var ~func))
+                                       :tag ~pinkie-tag
                                        :fun ~func}))
 
 (defn get-component [tag]
