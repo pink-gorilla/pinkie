@@ -29,21 +29,21 @@
 
 (def component-registry (atom {}))
 
-(defn register-tag 
+(defn register-tag
   "DEPRECIATED: please use register-component macro instead.
    registers a reagent component in the pinkie registry."
   [pinkie-tag func]
   (swap! component-registry assoc pinkie-tag {:meta {}
-                                     :tag pinkie-tag
-                                     :fun ~func}))
+                                              :tag pinkie-tag
+                                              :fun ~func}))
 
-(defmacro register-component 
+(defmacro register-component
   "registers a reagent component in the pinkie registry.
    Captures meta-data of the function symbol."
   [pinkie-tag func]
   `(swap! component-registry assoc ~pinkie-tag {:meta (meta (var ~func))
-                                       :tag ~pinkie-tag
-                                       :fun ~func}))
+                                                :tag ~pinkie-tag
+                                                :fun ~func}))
 
 (defn get-component [tag]
   (tag @component-registry))
