@@ -2,11 +2,11 @@
   (:require
    [clojure.string :as str]
    [clojure.walk :refer [prewalk postwalk]] ; cljs 1.10 still does not have walk fixed
+   ; [pinkgorilla.ui.walk :refer [prewalk]] ; TODO: replace this as soon as 1.11 cljs is out.
    #?(:cljs [cljs.pprint])
    #?(:cljs [reagent.core :as r :refer [atom]])
    #?(:cljs [reagent.impl.template :refer [HiccupTag cached-parse]])
  ;  [taoensso.timbre :refer-macros (info)]
-   ; [pinkgorilla.ui.walk :refer [prewalk]] ; TODO: replace this as soon as 1.11 cljs is out.
    ))
 
 ; notes

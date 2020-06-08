@@ -1,5 +1,5 @@
 (defproject org.pinkgorilla/gorilla-renderable-ui "0.2.3-SNAPSHOT"
-  :description "Gorilla Renderable UI - cljs based rendering for Pink Gorilla Notebook."
+  :description "Pinkie reagent component registry."
   :url "https://github.com/pink-gorilla/gorilla-renderable-ui"
   :license {:name "MIT"}
   :deploy-repositories [["releases" {:url           "https://clojars.org/repo"
