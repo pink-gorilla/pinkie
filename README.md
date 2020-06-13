@@ -36,43 +36,18 @@ The reagent syntax can be nested:
   [:p/vega spec]]
 ```
 
-## dynamic updates
+## cljs - reagent atoms / dynamic updates
 
-- If spec is an atom, then, clj needs to push changes via websocket from clj into a newly created cljs reagent/atom. 
-- The renderers work only with values; the rendering system needs to handle the dereferencing of atoms upon tag replacement.
+- If spec is a dereferenced reagent atom, then reagent will re-render the
+  component upon change of the data. 
+- Note that this works only on cljs. (Goldly will be able to convert 
+  clojure atoms to mirrored reagent atoms.)
 
 ## Dynamically loaded renderers
 
 - If renderers are loaded at runtime, a loading component must
 be displayed until renderer is loaded.
 
-## Syntactic sugar for librarys that need visualization
-
-- Goal is to use meta-data to trigger rendering of function output.
-- Say we want a function that creates a vega spec to be rendered with a vega renderer:
-
-```
-(defn timeseries-plot 
-  "timeseries-plot creates vega spec for a timeseries plot"
-  [data] 
-  ^{:render-with :p/vega} vega-spec)
-```
-
-- The user would then use this with:
-
-```
-[:div [:h1 "demo"]
-      (timeseries-plot data)]
-```
-
-- the rendering system would then internally convert this to:
-
-```
-[:div [:h1 "demo"]
-      [:p/vega (timeseries-plot data)]]
-```
-
-- This saves the library author from writing a wrapper.
 
 ## Style as string
 
@@ -82,21 +57,13 @@ be displayed until renderer is loaded.
            :style "background-color: blue; font-size: 14px"}]
 ```
 - Such syntax is not accepted by reagent though, but it should
-- The rendering will therefor preprocess this data, so that reagent gets this:
+- Pinkie will therefore preprocess this data, so that reagent gets this:
 ``` 
    [:rect {:width "100%" :height "100%"
            :style {:background-color "blue" :font-size "14px"}}]
 ```
-- This is important for certain libraris that define styles as strings. 
-
-
-
-# Clojurescript type based rendering
-
-- All cljs datatypes have default renderers that will be selected based on the type of the data.
-
-
-
+- This is important for certain libraris that define styles as strings
+  (happens for example in R html output). 
 
 
 # Licence
