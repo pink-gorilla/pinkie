@@ -1,6 +1,6 @@
 (defproject org.pinkgorilla/gorilla-renderable-ui "0.2.5-SNAPSHOT"
   :description "Pinkie reagent component registry."
-  :url "https://github.com/pink-gorilla/gorilla-renderable-ui"
+  :url "https://github.com/pink-gorilla/pinkie"
   :license {:name "MIT"}
   :deploy-repositories [["releases" {:url           "https://clojars.org/repo"
                                      :username      :env/release_username

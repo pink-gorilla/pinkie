@@ -1,7 +1,12 @@
-# PinkGorilla Renderable UI
- [![GitHub Actions status |pink-gorilla/gorilla-renderable-ui](https://github.com/pink-gorilla/gorilla-renderable-ui/workflows/CI/badge.svg)](https://github.com/pink-gorilla/gorilla-renderable-ui/actions?workflow=CI)[![Clojars Project](https://img.shields.io/clojars/v/org.pinkgorilla/gorilla-renderable-ui.svg)](https://clojars.org/org.pinkgorilla/gorilla-renderable-ui)
+# Pinkie
+ [![GitHub Actions status |pink-gorilla/gorilla-renderable-ui](https://github.com/pink-gorilla/pinkie/workflows/CI/badge.svg)](https://github.com/pink-gorilla/pinkie/actions?workflow=CI)[![Clojars Project](https://img.shields.io/clojars/v/org.pinkgorilla/gorilla-renderable-ui.svg)](https://clojars.org/org.pinkgorilla/gorilla-renderable-ui)
 
-This project is part of [Pink Gorilla Notebook](https://github.com/pink-gorilla/gorilla-notebook).
+- Pinkie is a simple registry for reagent components. 
+- Instead of referring to components by symbol, you refer to by keyword.
+- Think of it as new html tags that are linked to your reagent components.
+- This is useful to declaratively specify ui. 
+- This project is used in [Notebook](https://github.com/pink-gorilla/gorilla-notebook) and [Goldly](https://github.com/pink-gorilla/goldly).
+- Pinkie has minimal dependencies, so it can be painlessly integrated to your project. 
 
 
 # Pinkie DSL
