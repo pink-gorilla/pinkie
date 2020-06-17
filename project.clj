@@ -25,7 +25,8 @@
                  ;[com.taoensso/timbre "4.10.0"]             ; clojurescript logging
                  [com.lucasbradstreet/cljs-uuid-utils "1.0.2"] ;; awb99: in encoding, and clj/cljs proof
                  ]
-
+  
+:target-path  "target/jar"
   ;; :source-paths ["src"]
   ;; :test-paths ["test"]
 
