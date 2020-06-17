@@ -1,4 +1,4 @@
-(ns pinkgorilla.ui.walk
+(ns pinkie.walk
   " For pinkie tag injection we need a more up to date version
     of walk.
 

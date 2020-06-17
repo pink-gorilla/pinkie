@@ -1,14 +1,14 @@
-(ns pinkgorilla.ui.pinkie-registry-test
+(ns pinkie.pinkie-registry-test
   (:require
    [cljs.test :refer-macros [async deftest is testing]]
    [cljs.pprint]
-   [pinkgorilla.ui.macros :refer-macros [fn-meta]]
-   [pinkgorilla.ui.pinkie :refer [component-list print-components get-component get-renderer] :refer-macros [register-component]]
-   [pinkgorilla.ui.jsrender :refer [render-js]] ; this registers jsrender
-   [pinkgorilla.ui.html :refer [html]]
-   [pinkgorilla.ui.text :refer [text]]
-   [pinkgorilla.ui.gtable :refer [gtable]]
-   [pinkgorilla.ui.pinkie-render :refer [components]]))
+   [pinkie.macros :refer-macros [fn-meta]]
+   [pinkie.pinkie :refer [component-list print-components get-component get-renderer] :refer-macros [register-component]]
+   [pinkie.jsrender :refer [render-js]] ; this registers jsrender
+   [pinkie.html :refer [html]]
+   [pinkie.text :refer [text]]
+   [pinkie.gtable :refer [gtable]]
+   [pinkie.pinkie-render :refer [components]]))
 
 (defn ^{:category :pinkie-test
         :doc "just used for testing"

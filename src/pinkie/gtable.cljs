@@ -1,6 +1,6 @@
-(ns pinkgorilla.ui.gtable
+(ns pinkie.gtable
   (:require
-   [pinkgorilla.ui.pinkie :refer-macros [register-component]]))
+   [pinkie.pinkie :refer-macros [register-component]]))
 
 (defn grow [r]
   (into [:tr] (map-indexed

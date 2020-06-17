@@ -1,8 +1,8 @@
-(ns pinkgorilla.ui.html
+(ns pinkie.html
   (:require
    [reagent.core :as reagent]
    [reagent.dom]
-   [pinkgorilla.ui.pinkie :refer-macros [register-component]]))
+   [pinkie.pinkie :refer-macros [register-component]]))
 
 ; this was moved from notebook.
 

@@ -1,7 +1,7 @@
-(ns pinkgorilla.ui.text
+(ns pinkie.text
   (:require
    [clojure.string :as str]
-   [pinkgorilla.ui.pinkie :refer-macros [register-component]]))
+   [pinkie.pinkie :refer-macros [register-component]]))
 
 (defn line-with-br [t]
   [:div

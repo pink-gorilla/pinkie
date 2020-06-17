@@ -1,4 +1,4 @@
-(defproject org.pinkgorilla/gorilla-renderable-ui "0.2.8-SNAPSHOT"
+(defproject org.pinkgorilla/pinkie "0.2.8-SNAPSHOT"
   :description "Pinkie reagent component registry."
   :url "https://github.com/pink-gorilla/pinkie"
   :license {:name "MIT"}

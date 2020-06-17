@@ -1,4 +1,4 @@
-(ns pinkgorilla.dsl.r.style
+(ns pinkie.style
   (:require
    [clojure.string :as str]
    [clojure.walk :refer [prewalk]]))

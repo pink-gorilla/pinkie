@@ -1,4 +1,4 @@
-(ns pinkgorilla.ui.jsrender
+(ns pinkie.jsrender
   "jsrender is part of a jsrequire based module system to render data via javascipt inside
    reagent components. Typically custom ui renderers would use it:
    [jsrender custom-module data]"
@@ -6,7 +6,7 @@
    [reagent.core :as reagent]
    [reagent.dom]
    [cljs-uuid-utils.core :as uuid]
-   [pinkgorilla.ui.error :refer [error-boundary]]))
+   [pinkie.error :refer [error-boundary]]))
 
 (defn info [s]
   (.log js/console s))

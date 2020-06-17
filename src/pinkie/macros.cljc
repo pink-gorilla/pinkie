@@ -1,4 +1,4 @@
-(ns pinkgorilla.ui.macros)
+(ns pinkie.macros)
 
 (defmacro def-
   "same as def, yielding non-public def"

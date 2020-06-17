@@ -1,4 +1,4 @@
-(ns pinkgorilla.ui.htmltags
+(ns pinkie.htmltags
   (:require
    [reagent.impl.template :refer [cached-parse]]))
 

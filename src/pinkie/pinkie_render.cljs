@@ -1,11 +1,11 @@
-(ns pinkgorilla.ui.pinkie-render
+(ns pinkie.pinkie-render
   (:require
    [cljs.pprint]
-   [pinkgorilla.ui.error :refer [error-boundary]]
-   [pinkgorilla.ui.pinkie :refer [tag-inject convert-style-as-strings-to-map convert-render-as
-                                  component-list->str]
+   [pinkie.error :refer [error-boundary]]
+   [pinkie.pinkie :refer [tag-inject convert-style-as-strings-to-map convert-render-as
+                          component-list->str]
     :refer-macros [register-component]]
-   [pinkgorilla.ui.text]))
+   [pinkie.text]))
 
 (defn reagent-inject [{:keys [map-keywords fix-style]
                        :or {fix-style true}
@@ -48,6 +48,6 @@
   "displays pinkie component table as text.
    useful for debugging as it has no dependencies."
   []
-  [pinkgorilla.ui.text/text (component-list->str)])
+  [pinkie.text/text (component-list->str)])
 
 (register-component :p/components components)

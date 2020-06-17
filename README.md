@@ -1,5 +1,5 @@
 # Pinkie
- [![GitHub Actions status |pink-gorilla/gorilla-renderable-ui](https://github.com/pink-gorilla/pinkie/workflows/CI/badge.svg)](https://github.com/pink-gorilla/pinkie/actions?workflow=CI)[![Clojars Project](https://img.shields.io/clojars/v/org.pinkgorilla/gorilla-renderable-ui.svg)](https://clojars.org/org.pinkgorilla/gorilla-renderable-ui)
+ [![GitHub Actions status |pink-gorilla/pinkie](https://github.com/pink-gorilla/pinkie/workflows/CI/badge.svg)](https://github.com/pink-gorilla/pinkie/actions?workflow=CI)[![Clojars Project](https://img.shields.io/clojars/v/org.pinkgorilla/pinkie.svg)](https://clojars.org/org.pinkgorilla/pinkie)
 
 - Pinkie is a simple registry for reagent components. 
 - Instead of referring to components by symbol, you refer to by keyword.

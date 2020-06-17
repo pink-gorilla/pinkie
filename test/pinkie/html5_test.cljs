@@ -1,7 +1,7 @@
-(ns pinkgorilla.ui.html5-test
+(ns pinkie.html5-test
   (:require
    [cljs.test :refer-macros [async deftest is testing]]
-   [pinkgorilla.ui.htmltags :refer [html5-tag?]]))
+   [pinkie.htmltags :refer [html5-tag?]]))
 
 (deftest html5-keyword-test []
   (is (= true (html5-tag? :h1)))

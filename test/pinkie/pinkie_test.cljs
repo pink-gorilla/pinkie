@@ -1,11 +1,11 @@
-(ns pinkgorilla.ui.pinkie-test
+(ns pinkie.pinkie-test
   (:require
    [cljs.test :refer-macros [async deftest is testing]]
    [clojure.walk :refer [prewalk]]
-   [pinkgorilla.ui.pinkie :refer [pinkie-tag? pinkie-exclude? should-replace? tag-inject unknown-tag
-                                  convert-style-as-strings-to-map convert-render-as]]
-   [pinkgorilla.ui.text :refer [text]]
-   [pinkgorilla.ui.pinkie-registry-test] ; for testbutton registration
+   [pinkie.pinkie :refer [pinkie-tag? pinkie-exclude? should-replace? tag-inject unknown-tag
+                          convert-style-as-strings-to-map convert-render-as]]
+   [pinkie.text :refer [text]]
+   [pinkie.pinkie-registry-test] ; for testbutton registration
    ))
 
 (deftest clojure-keyword-test []
@@ -64,7 +64,7 @@
 
 ;;;
 ;;; simple test; mainly make sure clojure code has not changed 
-;;; (there are breaking changes coming - see pinkgorilla.ui.walk)
+;;; (there are breaking changes coming - see pinkie.walk)
 ;;;
 
 
