@@ -8,8 +8,8 @@
    [pinkie.text]))
 
 (defn reagent-inject [{:keys [map-keywords fix-style]
-                       :or {fix-style true}
-                       :as options} component]
+                       :or {map-keywords true
+                            fix-style true}} component]
   (let [;_ (info "map-keywords: " map-keywords "widget: " widget " reagent component: " component)
         ;_ (info "meta data: " (meta component))
         component (convert-render-as component)
@@ -20,25 +20,22 @@
         ]
     [:div.reagent-output component]))
 
-(defn pinkie-render-unsafe
-  [output]
-  (let [{:keys [hiccup]
-         :as options} (:content output)
-        options-without-hiccup (dissoc options :hiccup)]
-    (reagent-inject options-without-hiccup hiccup)))
-
 (defn ^{:category :pinkie}
   pinkie-render
   "renders a reagent hiccup vector that can contain pinkie components.
    wrapped with react error boundary.
    
-   [:p/pinkie {:content {:map-keywords true
-               :fix-style false
-               :hiccup [:p/vega spec]}}]
+   [:p/pinkie {:map-keywords true
+               :fix-style false}
+              [:p/vega spec]]
    "
-  [output]
-  [error-boundary
-   [pinkie-render-unsafe output]])
+  ([pinkie-spec]
+   (pinkie-render {:map-keywords true
+                   :fix-style true}
+                  pinkie-spec))
+  ([options pinkie-spec]
+   [error-boundary
+    [reagent-inject options pinkie-spec]]))
 
 (register-component :p/pinkie pinkie-render)
 
