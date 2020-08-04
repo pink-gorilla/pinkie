@@ -19,27 +19,31 @@
                   ["vcs" "commit" "Begin %s"]
                   ["vcs" "push"]]
 
+  :target-path  "target/jar"
+  :source-paths ["src"]
+  :test-paths ["test"]
+
+  :managed-dependencies [[com.google.code.findbugs/jsr305 "3.0.2"]
+                         [commons-codec "1.14"]]
+
   :dependencies [;; [org.clojure/clojure "1.10.1"]
                  ;; [org.clojure/clojurescript "1.10.520"]
                  ; awb99: adding timbre logging here would fuck up the kernel-shadowdeps bundle compilation.
                  ;[com.taoensso/timbre "4.10.0"]             ; clojurescript logging
                  [com.lucasbradstreet/cljs-uuid-utils "1.0.2"] ;; awb99: in encoding, and clj/cljs proof
                  ]
-  
-:target-path  "target/jar"
-  ;; :source-paths ["src"]
-  ;; :test-paths ["test"]
 
-  :profiles {:dev {:dependencies [[reagent "0.10.0"; reagent is devonly, so clients do not need to manage reagent version
+  :profiles {:dev {:dependencies [[reagent "0.10.0"; reagent is dev-only, so clients do not need to manage reagent version
                                    :exclusions [org.clojure/tools.reader
                                                 cljsjs/react
                                                 cljsjs/react-dom]]
 
-                                  [thheller/shadow-cljs "2.8.80"]
+                                  [thheller/shadow-cljs "2.10.19"]
                                   [thheller/shadow-cljsjs "0.0.21"]
-                                  [clj-kondo "2019.11.23"]]
+                                  [clj-kondo "2020.07.29"]]
                    :plugins      [[lein-cljfmt "0.6.6"]
                                   [lein-cloverage "1.1.2"]
+                                  [lein-ancient "0.6.15"]
                                   [lein-shell "0.5.0"]]
                    :aliases      {"clj-kondo"
                                   ["run" "-m" "clj-kondo.main"]

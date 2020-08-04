@@ -1,5 +1,4 @@
-{;; :lein   true
- :lein {:profile "+cljs"}
+{:lein {:profile "+cljs"}
 
  :nrepl  {:port 8703}
  :builds {:ci   {:target      :karma
