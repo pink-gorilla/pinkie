@@ -20,14 +20,14 @@
       :reagent-render (fn [f data] ;; remember to repeat parameters
                         [:div {:id uuid}])
       :component-did-mount (fn [this] ; oldprops oldstate snapshot
-                             (println "c-d-m: " this)
+                             ;(println "c-d-m: " this)
                              ;(info (str "jsrender init data: " data))
                              (f (reagent.dom/dom-node this) data))
       :component-did-update (fn [this old-argv]
                               (let [new-argv (rest (reagent/argv this))
                                     [arg1] new-argv
                                     {:keys [f data]} arg1]
-                                (println "component did update: " this "argv: " new-argv)
+                                ;(println "component did update: " this "argv: " new-argv)
                                 (f (reagent.dom/dom-node this) data)))
 
       ; 2021 04 awb99: component-will-update is depeciated 
