@@ -15,4 +15,7 @@ pom.xml.asc
 .classpath
 .project
 .settings/*
-
+.lsp
+creds.edn
+package.json
+package-lock.json

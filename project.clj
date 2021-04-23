@@ -1,4 +1,4 @@
-(defproject org.pinkgorilla/pinkie "0.2.12-SNAPSHOT"
+(defproject org.pinkgorilla/pinkie "0.3.1-SNAPSHOT"
   :description "Pinkie reagent component registry."
   :url "https://github.com/pink-gorilla/pinkie"
   :license {:name "MIT"}
@@ -22,25 +22,20 @@
   :target-path  "target/jar"
   :source-paths ["src"]
   :test-paths ["test"]
+  :resource-paths  ["resources" ; not from npm
+                    "target/webly" ; bundle
+                    "target/node_modules"] ; css png resources from npm modules
 
-  :managed-dependencies [[com.google.code.findbugs/jsr305 "3.0.2"]
-                         [commons-codec "1.14"]]
 
-  :dependencies [;; [org.clojure/clojure "1.10.1"]
-                 ;; [org.clojure/clojurescript "1.10.520"]
-                 ; awb99: adding timbre logging here would fuck up the kernel-shadowdeps bundle compilation.
-                 ;[com.taoensso/timbre "4.10.0"]             ; clojurescript logging
-                 [com.lucasbradstreet/cljs-uuid-utils "1.0.2"] ;; awb99: in encoding, and clj/cljs proof
+  :dependencies [[com.lucasbradstreet/cljs-uuid-utils "1.0.2"] ;; awb99: in encoding, and clj/cljs proof
                  ]
 
-  :profiles {:dev {:dependencies [[reagent "0.10.0"; reagent is dev-only, so clients do not need to manage reagent version
-                                   :exclusions [org.clojure/tools.reader
-                                                cljsjs/react
-                                                cljsjs/react-dom]]
+  :profiles {:demo {:dependencies []
+                    :resource-paths  ["profiles/demo/resources"]
+                    :source-paths ["profiles/demo/src"]}
 
-                                  [thheller/shadow-cljs "2.10.19"]
-                                  [thheller/shadow-cljsjs "0.0.21"]
-                                  [clj-kondo "2020.07.29"]]
+             :dev {:dependencies [[org.pinkgorilla/webly "0.2.7"] ; brings shadow-cljs
+                                  [clj-kondo "2021.03.31"]]
                    :plugins      [[lein-cljfmt "0.6.6"]
                                   [lein-cloverage "1.1.2"]
                                   [lein-ancient "0.6.15"]
@@ -49,13 +44,17 @@
                                   ["run" "-m" "clj-kondo.main"]
 
                                   "build-shadow-ci" ^{:doc "Build shadow-cljs ci"}
-                                  ["run" "-m" "shadow.cljs.devtools.cli" "compile" ":ci"]
+                                  ["with-profile" "+demo" "run" "-m" "demo.app" "ci"]
+                                  ;["run" "-m" "shadow.cljs.devtools.cli" "compile" ":ci"]
 
                                   "test-run" ^{:doc "Test compiled JavaScript."}
                                   ["shell" "./node_modules/karma/bin/karma" "start" "--single-run"]
 
                                   "test-js" ^{:doc "Compile & Run JavaScript."}
                                   ["do" "build-shadow-ci" ["test-run"]]
+
+                                  "demo"  ^{:doc "Runs UI components via webserver."}
+                                  ["with-profile" "+demo" "run" "-m" "demo.app" "watch"]
 
                                   "bump-version"    ^{:doc "Roll versions artefact version"}
                                   ["change" "version" "leiningen.release/bump-version"]}
