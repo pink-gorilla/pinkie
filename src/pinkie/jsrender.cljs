@@ -19,7 +19,9 @@
     (reagent/create-class
      {:display-name "render-function-impl"
       :reagent-render (fn [{:keys [f data box] :as spec}] ;; remember to repeat parameters
-                        [:div (merge (apply-style spec) {:id uuid})])
+                        [:div (-> (apply-style spec)
+                                  (assoc :id uuid)
+                                  (dissoc :f))])
       :component-did-mount (fn [this] ; oldprops oldstate snapshot
                              ;(println "c-d-m: " this)
                              ;(info (str "jsrender init data: " data))

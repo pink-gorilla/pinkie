@@ -69,6 +69,12 @@ be displayed until renderer is loaded.
 
 `lein demo`
 
+## unit tests
+
+```
+lein npm-install
+lein test-js
+```
 
 
 # Licence

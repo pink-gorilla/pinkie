@@ -18,5 +18,5 @@
 
 (defn apply-style [{:keys [box style] :as opts}]
   (let [s (merge (container-style box) opts)]
-    (println "merged style: " s "box: " box " opts:" opts)
+    ;(println "merged style: " s "box: " box " opts:" opts)
     s))
