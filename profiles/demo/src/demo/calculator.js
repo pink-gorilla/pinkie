@@ -6,14 +6,20 @@ function removeAllChildNodes(parent) {
   }
 }
 
-function addone (domnode, n) {
+function addone (domnode, args) {
+  var n = args.nr;
+  var color = args.color
   var nr = n+1;
-  domnode.appendChild
-  var node = document.createElement("p");           
-  var textnode = document.createTextNode("Result: " + nr);      
-  node.appendChild(textnode);                    
+
+  var textnode = document.createTextNode("Result: " + nr); 
+
+  // var pnode = document.createElement("p");      
+  // pnode.appendChild(textnode); 
+
   removeAllChildNodes(domnode);
-  domnode.appendChild(node); 
+  domnode.style.backgroundColor = color;
+  // domnode.appendChild(pnode); 
+  domnode.appendChild(textnode);
 }
 
 

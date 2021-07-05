@@ -33,7 +33,7 @@
       :reagent-render (fn [comp]
                         (if @error
                           [:div.bg-red-300
-                           "Component Error: "
+                           "Error: "
                            (when @error (pr-str @error))]
                           comp))})))
 

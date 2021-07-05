@@ -6,19 +6,20 @@
    [reagent.core :as reagent]
    [reagent.dom]
    [cljs-uuid-utils.core :as uuid]
-   [pinkie.error :refer [error-boundary]]))
+   [pinkie.error :refer [error-boundary]]
+   [pinkie.box :refer [container-style apply-style]]))
 
 (defn info [s]
   (.log js/console s))
 
 (defn render-function-impl
-  [{:keys [f data]}]
+  [{:keys [f data box] :as spec}]
   (let [uuid (uuid/uuid-string (uuid/make-random-uuid))]
     ; https://github.com/reagent-project/reagent/blob/master/doc/CreatingReagentComponents.md
     (reagent/create-class
      {:display-name "render-function-impl"
-      :reagent-render (fn [f data] ;; remember to repeat parameters
-                        [:div {:id uuid}])
+      :reagent-render (fn [{:keys [f data box] :as spec}] ;; remember to repeat parameters
+                        [:div (merge (apply-style spec) {:id uuid})])
       :component-did-mount (fn [this] ; oldprops oldstate snapshot
                              ;(println "c-d-m: " this)
                              ;(info (str "jsrender init data: " data))
@@ -37,9 +38,9 @@
       ;                         (f (reagent.dom/dom-node this) data))
       })))
 
-(defn render-clj [data]
+(defn render-clj [spec]
   [error-boundary
-   [render-function-impl data]])
+   [render-function-impl spec]])
 
 (defn ^{:category :pinkie}
   render-js
@@ -50,9 +51,8 @@
               gets js data
          data a clojure datastructure that will be converted to js
               before calling f"
-  [{:keys [f data]}]
-  (let [data-js {:f f :data (clj->js data)}]
-    [render-clj data-js]))
+  [{:keys [data] :as spec}]
+  [render-clj (assoc spec :data (clj->js data))])
 
 
 

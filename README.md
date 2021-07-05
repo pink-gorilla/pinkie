@@ -65,6 +65,11 @@ be displayed until renderer is loaded.
 - This is important for certain libraris that define styles as strings
   (happens for example in R html output). 
 
+## ui demo
+
+`lein demo`
+
+
 
 # Licence
 
