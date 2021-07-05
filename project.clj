@@ -57,11 +57,14 @@
   {"demo"  ^{:doc "Runs UI components via webserver."}
    ["with-profile" "+demo" "run" "-m" "webly.user.app.app" "webly-demo.edn" "watch"]
 
+   "npm-install"
+   ["with-profile" "+demo" "run" "-m" "webly.user.app.app" "webly-demo.edn" "npm-install"]
+
    "build-shadow-ci" ^{:doc "Build shadow-cljs ci"}
    ["with-profile" "+demo" "run" "-m" "webly.user.app.app" "webly-demo.edn" "ci"]
 
    "test-run" ^{:doc "Test compiled JavaScript."}
-   ["shell" "./node_modules/karma/bin/karma" "start" "--single-run"]
+   ["shell" "npm" "test"]
 
    "test-js" ^{:doc "Compile & Run JavaScript."}
    ["do" "build-shadow-ci" ["test-run"]]}
