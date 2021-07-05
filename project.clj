@@ -36,17 +36,6 @@
          :aliases      {"clj-kondo"
                         ["run" "-m" "clj-kondo.main"]
 
-                        "build-shadow-ci" ^{:doc "Build shadow-cljs ci"}
-                        ["with-profile" "+demo" "run" "-m" "demo.app" "ci"]
-                                  ;["run" "-m" "shadow.cljs.devtools.cli" "compile" ":ci"]
-
-                        "test-run" ^{:doc "Test compiled JavaScript."}
-                        ["shell" "./node_modules/karma/bin/karma" "start" "--single-run"]
-
-                        "test-js" ^{:doc "Compile & Run JavaScript."}
-                        ["do" "build-shadow-ci" ["test-run"]]
-
-
                         "bump-version"    ^{:doc "Roll versions artefact version"}
                         ["change" "version" "leiningen.release/bump-version"]}
          :cloverage    {:codecov? true
@@ -60,13 +49,22 @@
                                   merge-meta          [[:inner 0]]
                                   try-if-let          [[:block 1]]}}}
 
-   :demo {:dependencies [[com.fasterxml.jackson.core/jackson-core "2.12.0"]
-]
+   :demo {:dependencies [[com.fasterxml.jackson.core/jackson-core "2.12.0"]]
           :resource-paths  ["profiles/demo/resources"]
           :source-paths ["profiles/demo/src"]}}
 
-  :aliases {"demo"  ^{:doc "Runs UI components via webserver."}
-            ["with-profile" "+demo" "run" "-m" "webly.user.app.app" "webly-demo.edn" "watch"]}
+  :aliases
+  {"demo"  ^{:doc "Runs UI components via webserver."}
+   ["with-profile" "+demo" "run" "-m" "webly.user.app.app" "webly-demo.edn" "watch"]
+
+   "build-shadow-ci" ^{:doc "Build shadow-cljs ci"}
+   ["with-profile" "+demo" "run" "-m" "webly.user.app.app" "webly-demo.edn" "ci"]
+
+   "test-run" ^{:doc "Test compiled JavaScript."}
+   ["shell" "./node_modules/karma/bin/karma" "start" "--single-run"]
+
+   "test-js" ^{:doc "Compile & Run JavaScript."}
+   ["do" "build-shadow-ci" ["test-run"]]}
 ;                                            
   )
 
