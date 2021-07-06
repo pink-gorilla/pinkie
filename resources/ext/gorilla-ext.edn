@@ -5,15 +5,19 @@
  :cljs-namespace [pinkie.default-setup
                   pinkie.pinkie
                   pinkie.error
-                  pinkie.text]
+                  pinkie.text
+                  pinkie.throw-exception]
  :cljs-bindings {'error-boundary pinkie.error/error-boundary
-                 'text pinkie.text/text}
+                 'text pinkie.text/text
+                 'throw-ex pinkie.throw-exception/exception-component}
  :cljs-ns-bindings {'pinkie {'register-tag pinkgorilla.repl.cljs.pinkie/register-tag
                              'render pinkie.pinkie-render/pinkie-render
                              'tags pinkie.pinkie/tags}}
  :pinkie {:p/gtable pinkie.gtable/gtable
           :p/phtml  pinkie.html/html ;phtml because it may not equal a html keyword
           :p/text pinkie.text/text
+          :p/exc pinkie.throw-exception/exception-component
+
           ;pinkie
           :p/pinkie pinkie.pinkie-render/pinkie-render
           :p/components pinkie.pinkie-render/components}

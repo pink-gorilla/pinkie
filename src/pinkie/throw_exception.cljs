@@ -1,8 +1,4 @@
-(ns demo.exception
-  (:require
-   [pinkie.pinkie :refer-macros [register-component]]
-))
-
+(ns pinkie.throw-exception)
 
 (defn ^{:category :pinkie
         :hidden true}
@@ -11,5 +7,3 @@
   []
   (throw {:type :custom-error
           :message "Something unpleasant occurred"}))
-
-(register-component :p/exc exception-component)
