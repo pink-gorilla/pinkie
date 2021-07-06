@@ -8,6 +8,7 @@
        :md {:width "600px" :height "400px"}
        :lg {:width "800px" :height "600px"}
        :fl {:width "100%"  :height "100%"}
+       :na {} ; no sizing
        :fs {:width "100vw" :height "100vw"
             :position "absolute"
             :top 0
