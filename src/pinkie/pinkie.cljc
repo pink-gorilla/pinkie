@@ -5,37 +5,22 @@
    ; [pinkie.walk :refer [prewalk]] ; TODO: replace this as soon as 1.11 cljs is out.
    #?(:cljs [cljs.pprint])
    #?(:cljs [reagent.core :as r :refer [atom]])
-   #?(:cljs [reagent.impl.template :refer [HiccupTag cached-parse]])
+  ; #?(:cljs [reagent.impl.template :refer [HiccupTag cached-parse]])
  ;  [taoensso.timbre :refer-macros (info)]
    ))
 
 ; notes
 ; has to be cljc file, because register-tag is a macro
 
-;; DEPRECIATED:
-; (def custom-renderers (atom {}))
-
-;(defn get-renderer [tag]
-;  (tag @custom-renderers))
-
-;(defn renderer-info [[k fun]]
-;  {:k k
-;   :r (pr-str fun)})
-
-;(defn renderer-list []
-;  (map renderer-info (seq @custom-renderers)))
-
-; new code with macro (to capture meta data)
-
 (def component-registry (atom {}))
 
 (defn register-tag
-  "DEPRECIATED: please use register-component macro instead.
-   registers a reagent component in the pinkie registry."
+  "registers a reagent component in the pinkie registry.
+   does not capture meta data"
   [pinkie-tag func]
   (swap! component-registry assoc pinkie-tag {:meta {}
                                               :tag pinkie-tag
-                                              :fun ~func}))
+                                              :fun func}))
 
 (defmacro register-component
   "registers a reagent component in the pinkie registry.
@@ -53,6 +38,9 @@
 
 (defn component-list []
   (vals @component-registry))
+
+(defn tags []
+  (keys @component-registry))
 
 #?(:cljs
    (defn component-list->str []

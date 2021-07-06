@@ -23,7 +23,6 @@
                     "target/webly" ; bundle
                     "target/node_modules"] ; css png resources from npm modules
 
-
   :dependencies [[com.lucasbradstreet/cljs-uuid-utils "1.0.2"]]
 
   :profiles

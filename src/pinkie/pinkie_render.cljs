@@ -3,8 +3,7 @@
    [cljs.pprint]
    [pinkie.error :refer [error-boundary]]
    [pinkie.pinkie :refer [tag-inject convert-style-as-strings-to-map convert-render-as
-                          component-list->str]
-    :refer-macros [register-component]]
+                          component-list->str]]
    [pinkie.text]))
 
 (defn reagent-inject [{:keys [map-keywords fix-style]
@@ -37,8 +36,6 @@
    [error-boundary
     [reagent-inject options pinkie-spec]]))
 
-(register-component :p/pinkie pinkie-render)
-
 (defn ^{:category :pinkie
         :hidden true}
   components
@@ -47,4 +44,3 @@
   []
   [pinkie.text/text (component-list->str)])
 
-(register-component :p/components components)

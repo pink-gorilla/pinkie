@@ -1,10 +1,10 @@
 (ns pinkie.html
   (:require
    [reagent.core :as reagent]
-   [reagent.dom]
-   [pinkie.pinkie :refer-macros [register-component]]))
+   [reagent.dom]))
 
 ; this was moved from notebook.
+
 
 (defn temp-comp-hack
   [no-kw]
@@ -72,5 +72,3 @@
          ;; :component-did-update (fn [this old-argv])
       :reagent-render      (fn []
                              [:div {:dangerouslySetInnerHTML {:__html html}}])})))
-
-(register-component :p/phtml html) ;phtml because it may not equal a html keyword

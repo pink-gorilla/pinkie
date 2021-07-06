@@ -1,0 +1,22 @@
+{:name "pinkie"
+ :clj-require []
+ :theme {:available  {}
+         :current {}}
+ :cljs-namespace [pinkie.default-setup
+                  pinkie.pinkie
+                  pinkie.error
+                  pinkie.text]
+ :cljs-bindings {'error-boundary pinkie.error/error-boundary
+                 'text pinkie.text/text}
+ :cljs-ns-bindings {'pinkie {'register-tag pinkgorilla.repl.cljs.pinkie/register-tag
+                             'render pinkie.pinkie-render/pinkie-render
+                             'tags pinkie.pinkie/tags}}
+ :pinkie {:p/gtable pinkie.gtable/gtable
+          :p/phtml  pinkie.html/html ;phtml because it may not equal a html keyword
+          :p/text pinkie.text/text
+          ;pinkie
+          :p/pinkie pinkie.pinkie-render/pinkie-render
+          :p/components pinkie.pinkie-render/components}
+ :modules {} ; modules and pinkie not yet via loader
+ :snippets []}
+

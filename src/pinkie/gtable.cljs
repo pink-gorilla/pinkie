@@ -1,6 +1,4 @@
-(ns pinkie.gtable
-  (:require
-   [pinkie.pinkie :refer-macros [register-component]]))
+(ns pinkie.gtable)
 
 (defn grow [r]
   (into [:tr] (map-indexed
@@ -21,5 +19,3 @@
      (fn [i r]
        ^:key (str "table-row-" i) [grow r])
      rows)]])
-
-(register-component :p/gtable gtable)

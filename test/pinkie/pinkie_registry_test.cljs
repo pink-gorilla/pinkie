@@ -22,6 +22,10 @@
          (macroexpand '(register-component :p/testbutton2 button)))
 
 (register-component :p/testbutton button)
+(register-component :p/text text)
+(register-component :p/phtml html)
+(register-component :p/gtable gtable)
+(register-component :p/components components)
 
 (print-components)
 

@@ -1,7 +1,6 @@
 (ns pinkie.text
   (:require
-   [clojure.string :as str]
-   [pinkie.pinkie :refer-macros [register-component]]))
+   [clojure.string :as str]))
 
 (defn line-with-br [t]
   [:div
@@ -17,4 +16,3 @@
   (let [lines (str/split t #"\n")]
     (into [:div {:gorilla_ui "text"}] (map line-with-br lines))))
 
-(register-component :p/text text)
