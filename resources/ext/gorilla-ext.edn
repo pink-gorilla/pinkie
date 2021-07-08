@@ -21,6 +21,6 @@
           ;pinkie
           :p/pinkie pinkie.pinkie-render/pinkie-render
           :p/components pinkie.pinkie-render/components}
- :modules {} ; modules and pinkie not yet via loader
+ :lazy false
  :snippets []}
 
