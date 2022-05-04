@@ -54,13 +54,13 @@
 
   :aliases
   {"demo"  ^{:doc "Runs UI components via webserver."}
-   ["with-profile" "+demo" "run" "-m" "webly.user.app.app" "webly-demo.edn" "watch"]
+   ["with-profile" "+demo" "run" "-m" "webly.user.app.app" "demo.edn" "watch"]
 
    "npm-install"
-   ["with-profile" "+demo" "run" "-m" "webly.user.app.app" "webly-demo.edn" "npm-install"]
+   ["with-profile" "+demo" "run" "-m" "webly.user.app.app" "demo.edn" "npm-install"]
 
    "build-shadow-ci" ^{:doc "Build shadow-cljs ci"}
-   ["with-profile" "+demo" "run" "-m" "webly.user.app.app" "webly-demo.edn" "ci"]
+   ["with-profile" "+demo" "run" "-m" "webly.user.app.app" "demo.edn" "ci"]
 
    "test-run" ^{:doc "Test compiled JavaScript."}
    ["shell" "npm" "test"]

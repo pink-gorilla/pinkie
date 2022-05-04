@@ -1,24 +1,34 @@
 (ns demo.app
   (:require
    [reagent.core :as r]
-   [webly.web.handler :refer [reagent-page]]
+   [frontend.page :refer [reagent-page]]
    [pinkie.default-setup]
+   [pinkie.html :refer [html]] ; html with script injection
    [pinkie.text :refer [text]]
    [pinkie.error :refer [error-boundary]]
-   [pinkie.pinkie :refer [tag-inject]]
+   [pinkie.throw-exception :refer [exception-component]]
+   [pinkie.pinkie :refer [tag-inject] :refer-macros [register-component]]
    ; demo
    [demo.events] ; side-effects
-   [demo.exception]
-   [demo.jsrender]))
+   [demo.jsrender]
+   [demo.snippets :as s]
+   [demo.vizspec-setup :refer [show]]
+   ))
+
+(register-component :p/text text)
+(register-component :p/phtml html)
+(register-component :p/exc exception-component)
+
 
 (defn wrap [component]
-  [:div
+  [:div.m-5.bg-blue-200
+   [:div.bg-gray-300.m-5.text-blue-400
+    [text (pr-str component)]]
    [error-boundary
     (tag-inject component)]
-   [:div.bg-gray-300.m-5.text-blue-400
-    [text (pr-str component)]]])
+   ])
 
-(defonce v (r/atom 20))
+
 
 (defmethod reagent-page :demo/main [& args]
   [:div
@@ -28,24 +38,7 @@
     [:p/text "hello,\n world! (text in 2 lines)"]]
 
    [wrap
-    [:div
-     [:p "small"]
-     [:p/add-one-js {:data {:nr 10 :color "yellow"} :box :sm}]
-     [:p "md medium"]
-     [:p/add-one-js {:data {:nr 100 :color "red"} :box :md}]
-     [:p "lg large"]
-     [:p/add-one-js {:data {:nr 100 :color "green"} :box :lg}]
-     [:p "custom size"]
-     [:p/add-one-js {:data {:nr 10 :color "orange"} :style {:width "60px" :height "60px"}}]
-
-
-     [:div.grid.grid-cols-2
-      [:p/add-one-js {:data {:nr 1000 :color "green"} :box :fl :style {:height "2cm"}}]
-      [:p/add-one-js {:data {:nr 1000 :color "blue"} :box :fl :style {:height "3cm"}}]]
-     
-     [:p "atom"]
-     [:p/add-one-js {:data {:nr @v :color "blue"} :box :lg}]
-     [:button.bg-red-700.p-2 {:on-click #(swap! v inc)} "click to add 1"]]]
+    s/js-demo]
 
    [wrap
     [:p/exc "this goes wrong"]]
@@ -57,4 +50,14 @@
     [:div
      [:h1 "html in reagent"]
      [:p "please open developer tools to check if hello world gets printed."]
-     [:p/phtml "<script src='/r/hello.js'></script>"]]]])
+     [:p/phtml "<script src='/r/hello.js'></script>"]]]
+
+   [:h1 "now new viz-spec system:"]
+
+   [show
+    [:div
+     ['customer {:first "John" :last "Doe"}]
+     ['customer {:first "Werner" :last "von Braun"}]
+     ['text "And now\nWe see!\nBut this is really long\nand extended"]]]
+   
+   ])

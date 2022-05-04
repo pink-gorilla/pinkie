@@ -5,12 +5,10 @@
 
 ; this was moved from notebook.
 
-
 (defn temp-comp-hack
   [no-kw]
   (when no-kw (into [(keyword (first no-kw))]
                     (rest no-kw))))
-
 
 ;; Scripts in Injected html are not being evaluated.
 ;; This is what worked for GorillaRepl
@@ -24,22 +22,17 @@
 ;; https://github.com/reagent-project/reagent/issues/457
 ;; https://github.com/reagent-project/reagent/issues/14#issuecomment-543582060
 
-
 ;; A BETTER WAY FOR A HTML UI:
 ;; Interface:
 ;; (require-js-scripts [...])
 ;; (js-render-function (cljs->js data))
 ;; (js-render-function (cljs->js data props))
 
-
-
 ;; TODO: refactor UI library interface to use reagent and not html
 ;; THEN we can use this nice just in time loader component:
 ;; https://www.martinklepsch.org/posts/just-in-time-script-loading-with-react-and-clojuresript.html
 
-
 ;; TODO Ugh, old stylesheets persist as html so we get a string
-
 
 (defn process-scripts!
   "Setting innerHTML (dangerouslySetInnerHTML) or textContent does not

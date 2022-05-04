@@ -3,8 +3,6 @@
    [reagent.core :as reagent]
       ;[re-catch.core :as rc]
    ))
-
-
 ; shows how to impement error boundary:
 ; https://github.com/reagent-project/reagent/blob/c214466bbcf099eafdfe28ff7cb91f99670a8433/test/reagenttest/testreagent.cljs
 
@@ -14,7 +12,6 @@
        ; cmp@http://localhost:8000/r/cljs-runtime/reagent.impl.component.js:508:43
        ; cmp@http://localhost:8000/r/cljs-runtime/reagent.impl.component.js:508:43
        ; div
-
 
 (defn error-boundary [_ #_comp]
   (let [error (reagent/atom nil)

@@ -162,10 +162,7 @@
   (to-map-style "background-color: blue; font-size: 14px")
 ;=> {:background-color "blue" :font-size "14px"}  
   )
-
-
 ;; RENDER-AS
-
 
 (defn render-as? [hiccup-vector]
   (contains? (meta hiccup-vector) :p/render-as))

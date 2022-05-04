@@ -1,0 +1,11 @@
+{:ns-clj [demo.routes]
+ :webly {:title "Pinkie UI"
+         :icon "/r/webly/pink-gorilla-32.png"
+         :ns-cljs [demo.app]
+         :start-user-app [:demo/start]
+         :routes demo.routes/routes}
+
+ :timbre/clj {:min-level [[#{"webly.ws.*"} :info]
+                          [#{"webly.user.*"} :info]
+                          [#{"org.eclipse.jetty.*"} :info]
+                          [#{"*"} :debug]]}}

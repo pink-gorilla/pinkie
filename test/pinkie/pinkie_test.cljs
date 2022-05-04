@@ -33,7 +33,7 @@
 (deftest should-replace-test  []
   (is (= false (should-replace? {:text 1 :best 2}))) ; map is no hiccup vector
   (is (= false (should-replace? [:p "hello"]))) ; html5 tag does not get replaced
-  (is (= false (should-replace? [:p.big "hello"]))) ; html5 tag (with class)does not get replaced
+  (is (= false (should-replace? [:p.big "hello"]))) ; html5 tag (with class) does not get replaced
   (is (= false (should-replace? [:text "hello"]))) ; no pinkie tag
   (is (= false (should-replace? ^:r [:p/text "hello"]))) ; pinkie tag, but pinkie exclude
   (is (= true (should-replace? ^:R [:p/text "hello"]))) ;pinkie tag, with pinkie include
@@ -42,14 +42,11 @@
   (is (= false (should-replace? [:p "hello"])))
   (is (= true (should-replace? [:p/testbutton "hello"]))))
 
-
 ;; test if the keyword :math gets replaced with math function
-
 
 (deftest tag-replacer-map-should-be-unchanged  []
   (is (= (tag-inject {:p/text 1 :best 2}) {:p/text 1 :best 2})) ;; tags in a map should not be exchanged,
   (is (= (tag-inject [:p/text 1 :y 2]) [text 1 :y 2]))) ;; first tag in vector will get replaced
-
 
 (deftest tag-replacer-exclude  []
   (is (= (tag-inject ^:r [:p/text 1 :best 2])
@@ -61,12 +58,10 @@
   (is (= (tag-inject [:div.big [:p/unknown 1 :best 2]])
          [:div.big (unknown-tag :p/unknown)])))
 
-
 ;;;
 ;;; simple test; mainly make sure clojure code has not changed 
 ;;; (there are breaking changes coming - see pinkie.walk)
 ;;;
-
 
 (defn rep [x]
   ;(println "************ " x)

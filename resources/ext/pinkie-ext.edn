@@ -1,4 +1,5 @@
 {:name "pinkie"
+ :lazy false
  :clj-require []
  :theme {:available  {}
          :current {}}
@@ -17,10 +18,9 @@
           :p/phtml  pinkie.html/html ;phtml because it may not equal a html keyword
           :p/text pinkie.text/text
           :p/exc pinkie.throw-exception/exception-component
-
           ;pinkie
           :p/pinkie pinkie.pinkie-render/pinkie-render
           :p/components pinkie.pinkie-render/components}
- :lazy false
+
  :snippets []}
 

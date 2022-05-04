@@ -1,0 +1,36 @@
+{:paths ["src"
+         "resources"]
+ :deps {org.clojure/clojure {:mvn/version  "1.10.3"}
+        com.lucasbradstreet/cljs-uuid-utils {:mvn/version  "1.0.2"}}
+
+ :aliases
+ {:cljfmt {:extra-deps {cljfmt/cljfmt {:mvn/version "RELEASE"}}
+           :main-opts ["-m" "cljfmt.main"
+                       "--indents" "cljfmt.edn"
+                       ; "fix"  "check"
+                       ]}
+
+ ; https://github.com/clj-kondo/clj-kondo/blob/master/doc/jvm.md
+  :lint {:extra-deps {clj-kondo/clj-kondo {:mvn/version "RELEASE"}}
+         :main-opts ["-m" "clj-kondo.main"
+                     "--fail-level" "error"
+                     "--config" "cljkondo.edn"
+                     "--lint"]}
+
+  :outdated {:extra-deps {com.github.liquidz/antq {:mvn/version "RELEASE"}}
+             :main-opts ["-m" "antq.core"]}
+
+  :build {:extra-deps {org.pinkgorilla/webly {:mvn/version "0.4.602"}
+                       com.fasterxml.jackson.core/jackson-core {:mvn/version "2.12.0"}}
+          :extra-paths ["profiles/demo/src" "profiles/demo/resources"]
+          :exec-fn webly.app.app/webly-build
+          :exec-args {:config ["webly/config.edn" "demo.edn"]
+                      :profile "npm-install"}}
+
+  :demo {:extra-deps {org.pinkgorilla/webly {:mvn/version "0.4.602"}
+                      com.fasterxml.jackson.core/jackson-core {:mvn/version "2.12.0"}}
+         :extra-paths ["profiles/demo/src" "profiles/demo/resources"]
+         :exec-fn modular.system/start!
+         :exec-args {:config ["webly/config.edn" "demo.edn"]
+                     :profile "watch2"
+                     :services "webly/services.edn"}}}}
