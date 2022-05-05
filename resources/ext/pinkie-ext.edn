@@ -7,13 +7,19 @@
                   pinkie.pinkie
                   pinkie.error
                   pinkie.text
-                  pinkie.throw-exception]
+                  pinkie.html
+                  pinkie.jsrender
+                  pinkie.throw-exception
+                  pinkie.viz.show]
  :cljs-bindings {'error-boundary pinkie.error/error-boundary
                  'text pinkie.text/text
+                 'html pinkie.html/html
+                 'js-fun pinkie.jsrender/render-js
                  'throw-ex pinkie.throw-exception/exception-component}
  :cljs-ns-bindings {'pinkie {'register-tag pinkie.pinkie/register-tag
                              'tags pinkie.pinkie/tags
-                             'render pinkie.pinkie-render/pinkie-render}}
+                             'render pinkie.pinkie-render/pinkie-render
+                             'show pinkie.viz.show/show}}
  :pinkie {:p/gtable pinkie.gtable/gtable
           :p/phtml  pinkie.html/html ;phtml because it may not equal a html keyword
           :p/text pinkie.text/text
