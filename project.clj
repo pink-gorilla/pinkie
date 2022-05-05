@@ -1,4 +1,4 @@
-(defproject org.pinkgorilla/pinkie "0.3.13-SNAPSHOT"
+(defproject org.pinkgorilla/pinkie "0.3.13"
   :description "Pinkie reagent component registry."
   :url "https://github.com/pink-gorilla/pinkie"
   :license {:name "MIT"}
