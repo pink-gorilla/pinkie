@@ -1,7 +1,7 @@
-(ns pinkie.viz.hiccup
+(ns viz.hiccup
   (:require
    [clojure.walk :refer [prewalk]] ; cljs 1.10 still does not have walk fixed
-   [pinkie.viz.resolve :refer [resolve-fn]]))
+   [viz.resolve :refer [resolve-fn]]))
 
 (defn- hiccup-with-fn-symbol? [hiccup-vector]
   (and

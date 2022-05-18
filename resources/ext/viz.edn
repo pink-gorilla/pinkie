@@ -1,0 +1,5 @@
+{:name "viz"
+ ; build
+ :lazy false
+ :cljs-namespace [viz.show]
+ :cljs-ns-bindings {'viz {'show viz.show/show}}}

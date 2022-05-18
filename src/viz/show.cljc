@@ -1,7 +1,7 @@
-(ns pinkie.viz.show
+(ns viz.show
   (:require
    #?(:cljs [pinkie.error :refer [error-boundary]])
-   [pinkie.viz.hiccup :refer [resolve-hiccup]]))
+   [viz.hiccup :refer [resolve-hiccup]]))
 
 #?(:clj
    (def error-boundary 'error-boundary))

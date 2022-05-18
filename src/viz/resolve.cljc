@@ -1,6 +1,6 @@
-(ns pinkie.viz.resolve
+(ns viz.resolve
   (:require
-   [pinkie.viz.unknown :refer [no-renderer]]))
+   [viz.unknown :refer [no-renderer]]))
 
 (defn resolve-fn
   [resolve fn-symbol]

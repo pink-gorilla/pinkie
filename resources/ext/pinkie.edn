@@ -1,8 +1,6 @@
 {:name "pinkie"
+ ; build
  :lazy false
- :clj-require []
- :theme {:available  {}
-         :current {}}
  :cljs-namespace [pinkie.default-setup
                   pinkie.pinkie
                   pinkie.error
@@ -10,7 +8,7 @@
                   pinkie.html
                   pinkie.jsrender
                   pinkie.throw-exception
-                  pinkie.viz.show]
+                  viz.show]
  :cljs-bindings {'error-boundary pinkie.error/error-boundary
                  'text pinkie.text/text
                  'html pinkie.html/html
@@ -19,14 +17,5 @@
  :cljs-ns-bindings {'pinkie {'register-tag pinkie.pinkie/register-tag
                              'tags pinkie.pinkie/tags
                              'render pinkie.pinkie-render/pinkie-render
-                             'show pinkie.viz.show/show}}
- :pinkie {:p/gtable pinkie.gtable/gtable
-          :p/phtml  pinkie.html/html ;phtml because it may not equal a html keyword
-          :p/text pinkie.text/text
-          :p/exc pinkie.throw-exception/exception-component
-          ;pinkie
-          :p/pinkie pinkie.pinkie-render/pinkie-render
-          :p/components pinkie.pinkie-render/components}
-
- :snippets []}
+                             'show viz.show/show}}}
 

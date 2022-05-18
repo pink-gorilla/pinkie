@@ -1,4 +1,4 @@
-(ns pinkie.viz.unknown)
+(ns viz.unknown)
 
 (defn no-renderer
   "ui component for unknown tags - so that we don't need to catch react errors

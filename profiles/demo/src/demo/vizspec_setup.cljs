@@ -1,6 +1,6 @@
 (ns demo.vizspec-setup
   (:require
-   [pinkie.viz.show :as viz]
+   [viz.show :as viz]
    [pinkie.text])
   )
 
