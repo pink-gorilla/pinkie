@@ -1,7 +1,4 @@
-(ns pinkie.htmltags
-  (:require
-   ;[reagent.impl.template :refer [cached-parse]]
-   ))
+(ns pinkie.htmltags)
 
 (def html5-tags
   #{:<>   ; this is technically the reagent-ignore keyword

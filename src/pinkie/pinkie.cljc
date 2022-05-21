@@ -3,7 +3,6 @@
    [clojure.string :as str]
    [clojure.walk :refer [prewalk postwalk]] ; cljs 1.10 still does not have walk fixed
    ; [pinkie.walk :refer [prewalk]] ; TODO: replace this as soon as 1.11 cljs is out.
-   #?(:cljs [cljs.pprint])
    #?(:cljs [reagent.core :as r :refer [atom]])
   ; #?(:cljs [reagent.impl.template :refer [HiccupTag cached-parse]])
  ;  [taoensso.timbre :refer-macros (info)]
@@ -41,17 +40,6 @@
 
 (defn tags []
   (keys @component-registry))
-
-#?(:cljs
-   (defn component-list->str []
-     (with-out-str
-       (cljs.pprint/print-table
-        [:tag :ns :name :category]
-        (map #(merge (:meta %) {:tag (:tag %) :fun (:fun %)}) (component-list))))))
-
-#?(:cljs (defn print-components []
-           (println
-            (component-list->str))))
 
   ; it would be ideal to let reagent deal with this, but the below line did not work.
   ;(gobj/set reagent.impl.template/tag-name-cache (name k) v)

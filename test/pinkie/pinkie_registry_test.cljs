@@ -1,14 +1,12 @@
 (ns pinkie.pinkie-registry-test
   (:require
    [cljs.test :refer-macros [async deftest is testing]]
-   [cljs.pprint]
    [pinkie.macros :refer-macros [fn-meta]]
-   [pinkie.pinkie :refer [component-list print-components get-component get-renderer] :refer-macros [register-component]]
+   [pinkie.pinkie :refer [component-list get-component get-renderer] :refer-macros [register-component]]
    [pinkie.jsrender :refer [render-js]] ; this registers jsrender
    [pinkie.html :refer [html]]
    [pinkie.text :refer [text]]
-   [pinkie.gtable :refer [gtable]]
-   [pinkie.pinkie-render :refer [components]]))
+   [pinkie.gtable :refer [gtable]]))
 
 (defn ^{:category :pinkie-test
         :doc "just used for testing"
@@ -25,15 +23,11 @@
 (register-component :p/text text)
 (register-component :p/phtml html)
 (register-component :p/gtable gtable)
-(register-component :p/components components)
-
-(print-components)
 
 (deftest registry-lookup-test []
   (is (= (get-renderer :p/text) text)) ; render fubctions in registry are identical
   (is (= (get-renderer :p/phtml) html))
-  (is (= (get-renderer :p/gtable) gtable))
-  (is (= (get-renderer :p/components) components)))
+  (is (= (get-renderer :p/gtable) gtable)))
 
 (defn renderers-with-category []
   (->> (component-list)

@@ -1,9 +1,7 @@
 (ns pinkie.pinkie-render
   (:require
-   [cljs.pprint]
    [pinkie.error :refer [error-boundary]]
-   [pinkie.pinkie :refer [tag-inject convert-style-as-strings-to-map convert-render-as
-                          component-list->str]]
+   [pinkie.pinkie :refer [tag-inject convert-style-as-strings-to-map convert-render-as]]
    [pinkie.text]))
 
 (defn reagent-inject [{:keys [map-keywords fix-style]
@@ -36,11 +34,11 @@
    [error-boundary
     [reagent-inject options pinkie-spec]]))
 
-(defn ^{:category :pinkie
-        :hidden true}
-  components
-  "displays pinkie component table as text.
-   useful for debugging as it has no dependencies."
-  []
-  [pinkie.text/text (component-list->str)])
+;(defn ^{:category :pinkie
+;        :hidden true}
+;  components
+;  "displays pinkie component table as text.
+;   useful for debugging as it has no dependencies."
+;  []
+;  [pinkie.text/text (component-list->str)])
 
