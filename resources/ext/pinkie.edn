@@ -1,21 +1,21 @@
 {:name "pinkie"
  ; build
  :lazy false
- :cljs-namespace [pinkie.default-setup
-                  pinkie.pinkie
+ :cljs-namespace [; ui.pinkie 
                   pinkie.error
                   pinkie.text
                   pinkie.html
                   pinkie.jsrender
                   pinkie.throw-exception
-                  viz.show]
- :cljs-bindings {'error-boundary pinkie.error/error-boundary
-                 'text pinkie.text/text
-                 'html pinkie.html/html
-                 'js-fun pinkie.jsrender/render-js
-                 'throw-ex pinkie.throw-exception/exception-component}
+                  ; pinkie
+                  pinkie.default-setup
+                  pinkie.pinkie]
  :cljs-ns-bindings {'pinkie {'register-tag pinkie.pinkie/register-tag
                              'tags pinkie.pinkie/tags
-                             'render pinkie.pinkie-render/pinkie-render
-                             'show viz.show/show}}}
+                             'render pinkie.pinkie-render/pinkie-render}
+                    'ui.pinkie {'error-boundary pinkie.error/error-boundary
+                                'text pinkie.text/text
+                                'html pinkie.html/html
+                                'js-fun pinkie.jsrender/render-js
+                                'throw-ex pinkie.throw-exception/exception-component}}}
 
