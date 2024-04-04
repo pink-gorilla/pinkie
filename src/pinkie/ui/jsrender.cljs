@@ -1,4 +1,4 @@
-(ns pinkie.jsrender
+(ns pinkie.ui.jsrender
   "jsrender is part of a jsrequire based module system to render data via javascipt inside
    reagent components. Typically custom ui renderers would use it:
    [jsrender custom-module data]"
@@ -6,8 +6,8 @@
    [reagent.core :as reagent]
    [reagent.dom]
    [cljs-uuid-utils.core :as uuid]
-   [pinkie.error :refer [error-boundary]]
-   [pinkie.box :refer [container-style apply-style]]))
+   [pinkie.ui.error :refer [error-boundary]]
+   [pinkie.ui.box :refer [container-style apply-style]]))
 
 (defn info [s]
   (.log js/console s))

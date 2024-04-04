@@ -1,4 +1,4 @@
-(ns pinkie.walk
+(ns pinkie.tag.walk
   " For pinkie tag injection we need a more up to date version
     of walk.
 

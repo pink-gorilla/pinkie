@@ -1,4 +1,4 @@
-(ns pinkie.text
+(ns pinkie.ui.text
   (:require
    [clojure.string :as str]))
 

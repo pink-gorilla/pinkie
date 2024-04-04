@@ -1,4 +1,4 @@
-(ns pinkie.macros)
+(ns pinkie.tag.macros)
 
 (defmacro def-
   "same as def, yielding non-public def"

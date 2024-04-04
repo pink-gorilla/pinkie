@@ -1,4 +1,4 @@
-(ns pinkie.error
+(ns pinkie.ui.error
   (:require
    [reagent.core :as reagent]
       ;[re-catch.core :as rc]

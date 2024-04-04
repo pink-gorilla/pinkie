@@ -1,4 +1,4 @@
-(ns pinkie.gtable)
+(ns pinkie.ui.gtable)
 
 (defn grow [r]
   (into [:tr] (map-indexed

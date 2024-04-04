@@ -1,4 +1,4 @@
-(ns pinkie.htmltags)
+(ns pinkie.tag.htmltags)
 
 (def html5-tags
   #{:<>   ; this is technically the reagent-ignore keyword

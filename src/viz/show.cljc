@@ -1,6 +1,6 @@
 (ns viz.show
   (:require
-   #?(:cljs [pinkie.error :refer [error-boundary]])
+   #?(:cljs [pinkie.ui.error :refer [error-boundary]])
    [viz.hiccup :refer [resolve-hiccup]]))
 
 #?(:clj

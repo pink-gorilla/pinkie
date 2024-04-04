@@ -1,8 +1,8 @@
 (ns pinkie.pinkie-registry-test
   (:require
    [cljs.test :refer-macros [async deftest is testing]]
-   [pinkie.macros :refer-macros [fn-meta]]
-   [pinkie.pinkie :refer [component-list get-component get-renderer] :refer-macros [register-component]]
+   [pinkie.tag.macros :refer-macros [fn-meta]]
+   [pinkie.tag :refer [component-list get-component get-renderer] :refer-macros [register-component]]
    [pinkie.jsrender :refer [render-js]] ; this registers jsrender
    [pinkie.html :refer [html]]
    [pinkie.text :refer [text]]

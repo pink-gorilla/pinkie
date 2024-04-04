@@ -1,4 +1,4 @@
-(ns pinkie.html
+(ns pinkie.ui.html
   (:require
    [reagent.core :as reagent]
    [reagent.dom]))

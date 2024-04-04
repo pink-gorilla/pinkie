@@ -1,4 +1,4 @@
-(ns pinkie.style
+(ns pinkie.tag.style
   (:require
    [clojure.string :as str]
    [clojure.walk :refer [prewalk]]))

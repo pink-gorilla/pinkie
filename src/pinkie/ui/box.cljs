@@ -1,4 +1,4 @@
-(ns pinkie.box)
+(ns pinkie.ui.box)
 
 (defn container-style [box]
   (let [box (or box :sm)]

@@ -2,7 +2,7 @@
   (:require
    [cljs.test :refer-macros [async deftest is testing]]
    [clojure.walk :refer [prewalk]]
-   [pinkie.pinkie :refer [pinkie-tag? pinkie-exclude? should-replace? tag-inject unknown-tag
+   [pinkie.tag :refer [pinkie-tag? pinkie-exclude? should-replace? tag-inject unknown-tag
                           convert-style-as-strings-to-map convert-render-as]]
    [pinkie.text :refer [text]]
    [pinkie.pinkie-registry-test] ; for testbutton registration

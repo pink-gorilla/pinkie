@@ -1,8 +1,9 @@
-(ns pinkie.pinkie-render
+(ns pinkie.tag.pinkie-render
   (:require
-   [pinkie.error :refer [error-boundary]]
-   [pinkie.pinkie :refer [tag-inject convert-style-as-strings-to-map convert-render-as]]
-   [pinkie.text]))
+   [pinkie.ui.error :refer [error-boundary]]
+   [pinkie.ui.text]
+   [pinkie.tag :refer [tag-inject convert-style-as-strings-to-map convert-render-as]]
+   ))
 
 (defn reagent-inject [{:keys [map-keywords fix-style]
                        :or {map-keywords true

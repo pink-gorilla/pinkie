@@ -1,9 +1,8 @@
-{:name "viz-pinkie"
+{:name "pinkie-viz"
  ; build
  :lazy false
- :cljs-namespace [viz.hiccup
-                  viz.show]
- :cljs-ns-bindings {'viz {'show viz.show/show}
-                    'viz.hiccup {'resolve-hiccup viz.hiccup/resolve-hiccup}
-                    'viz.show {'show viz.show/show}
-                    }}
+ :cljs-namespace [viz.core]
+ :cljs-ns-bindings {'viz.core {'show viz.core/show
+                               'resolve-hiccup viz.core/resolve-hiccup
+                               'resolve-fn viz.core/resole-fn
+                               'no-renderer viz.unknown/no-renderer}}}

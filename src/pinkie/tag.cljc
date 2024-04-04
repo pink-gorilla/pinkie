@@ -1,4 +1,4 @@
-(ns pinkie.pinkie
+(ns pinkie.tag
   (:require
    [clojure.string :as str]
    [clojure.walk :refer [prewalk postwalk]] ; cljs 1.10 still does not have walk fixed

@@ -17,17 +17,31 @@
                      "--config" "cljkondo.edn"
                      "--lint"]}
 
-  :outdated {:extra-deps {com.github.liquidz/antq {:mvn/version "RELEASE"}}
-             :main-opts ["-m" "antq.core"]}
+  :build {:deps {io.github.clojure/tools.build {:mvn/version "0.9.6"}
+                 slipset/deps-deploy {:mvn/version "0.2.1"}
+                 babashka/fs {:mvn/version "0.0.5"}}
+          :ns-default build}
 
-  :build {:extra-deps {org.pinkgorilla/webly {:mvn/version "0.4.602"}
-                       com.fasterxml.jackson.core/jackson-core {:mvn/version "2.12.0"}}
-          :extra-paths ["profiles/demo/src" "profiles/demo/resources"]
+  :webly {:extra-deps {org.pinkgorilla/webly {:mvn/version "0.5.655"}}
           :exec-fn webly.app.app/webly-build
-          :exec-args {:config ["webly/config.edn" "demo.edn"]
+          :exec-args {:config [{:build {:disabled-extensions #{; extensions using sci-configs will not work in webly.
+                                                               "reagent" "re-frame"
+                                                               "funcool-promesa"
+                                                               "applied-science.js-interop"
+                                                                ; webly2 is now in webly. needs to be removed from ui-repl.
+                                                               "webly2"
+                                                               "ui-repl"
+                                                               "cljs-ajax"}}}]
                       :profile "npm-install"}}
 
-  :demo {:extra-deps {org.pinkgorilla/webly {:mvn/version "0.4.602"}
+  :npm-install {:exec-args {:profile "npm-install"}}
+  :compile {:exec-args {:profile "compile2"}}
+  :release {:exec-args {:profile "release"}}
+  :release-adv {:exec-args {:profile "release-adv"}}
+  :static {:exec-args {:profile "static"}}
+  :ci {:exec-args {:profile "ci"}}
+
+  :demo {:extra-deps {org.pinkgorilla/webly {:mvn/version "0.5.655"}
                       com.fasterxml.jackson.core/jackson-core {:mvn/version "2.12.0"}}
          :extra-paths ["profiles/demo/src" "profiles/demo/resources"]
          :exec-fn modular.system/start!
