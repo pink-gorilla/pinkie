@@ -17,7 +17,7 @@
             :right 0
             :z-index 5000})}))
 
-(defn apply-style [{:keys [box style] :as opts}]
+(defn apply-box-style [{:keys [box style] :as opts}]
   (let [s (merge (container-style box) opts)]
     ;(println "merged style: " s "box: " box " opts:" opts)
     s))

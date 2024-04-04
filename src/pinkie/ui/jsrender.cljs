@@ -7,7 +7,7 @@
    [reagent.dom]
    [cljs-uuid-utils.core :as uuid]
    [pinkie.ui.error :refer [error-boundary]]
-   [pinkie.ui.box :refer [container-style apply-style]]))
+   [pinkie.ui.box :refer [container-style apply-box-style]]))
 
 (defn info [s]
   (.log js/console s))
@@ -19,7 +19,7 @@
     (reagent/create-class
      {:display-name "render-function-impl"
       :reagent-render (fn [{:keys [f data box] :as spec}] ;; remember to repeat parameters
-                        [:div (-> (apply-style spec)
+                        [:div (-> (apply-box-style spec)
                                   (assoc :id uuid)
                                   (dissoc :f))])
       :component-did-mount (fn [this] ; oldprops oldstate snapshot

@@ -11,5 +11,7 @@
                                 'text pinkie.ui.core/text
                                 'html pinkie.ui.core/html
                                 'render-js pinkie.ui.core/render-js
-                                'gtable pinkie.ui.core/gtable}}}
+                                'gtable pinkie.ui.core/gtable
+                                'apply-box-style pinkie.ui.core/apply-box-style     
+                                     }}}
 

@@ -12,3 +12,5 @@
 (def html pinkie.ui.html/html)
 (def render-js pinkie.ui.jsrender/render-js)
 (def gtable pinkie.ui.gtable/gtable)
+
+(def apply-box-style pinkie.ui.box/apply-box-style)
