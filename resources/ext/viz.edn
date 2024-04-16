@@ -5,4 +5,4 @@
  :cljs-ns-bindings {'viz.core {'show viz.core/show
                                'resolve-hiccup viz.core/resolve-hiccup
                                'resolve-fn viz.core/resole-fn
-                               'no-renderer viz.unknown/no-renderer}}}
+                               'no-renderer viz.core/no-renderer}}}
